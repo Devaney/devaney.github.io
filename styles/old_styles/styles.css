@@ -1,0 +1,934 @@
+article, aside, dialog, figure, footer, header, hgroup, nav, section { 
+    display: block;
+}
+
+body {
+    color: #474747;
+    font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    min-width: 320px;
+    background-color: #efefef;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+/* 
+Typography
+*/
+
+h1, h2, h3, h4, h5, h6, p, li, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+p, li {
+    line-height: 1.5;
+    color: #474747;
+}
+
+a {
+    color: #0078c1;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 1rem 0;
+}
+
+h2 {
+    color: #6c6c6c;
+    font-size: 1.4rem;
+}
+
+header {
+    min-height: 321.125px;
+    background-color: #2098d1;
+    margin-bottom: 55px;
+}
+
+/* 
+Main navigation
+*/
+
+nav {
+    height: 64px;
+    padding-top: 5px;
+    text-align: center;
+    min-width: 100%;
+    overflow-x: auto;
+}
+
+nav ol {
+    min-width: 390px;
+}
+
+nav li {
+    display: inline-block;
+    border: none;
+}
+
+nav li:last-child::after {
+    content: '';
+}
+
+nav h1 {
+    display: inherit;
+    font-size: 1.4rem;
+}
+
+nav a {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    display: block;
+    padding: 13px 16px 5px;
+    line-height: 1.6em;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+/* 
+Big blocks
+*/
+
+.site-branding {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin-top: -1px;
+}
+
+.site-title a {
+    color: #fff;
+}
+
+.site-title {
+    margin: 1.6em 1em 0;
+    font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 2.4em;
+    font-weight: bold;
+    line-height: 1.3em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.site-title::after {
+    display: block;
+    content: "";
+    margin: .7em auto 0;
+    width: 3em;
+    border-bottom: solid 1px #fff;
+    opacity: .5;
+}
+
+.site-description {
+    margin: 2em 2em 3em;
+    font-size: 110%;
+    color: #fff;
+}
+
+section {
+    box-sizing: content-box;
+    margin-bottom: 55px;
+}
+
+#main {
+    margin: auto;
+    max-width: 1300px;
+    padding: 0 1em;
+}
+
+footer {
+    clear: both;
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+/* 
+Homepage
+*/
+
+section.about {
+    padding: 0;
+    position: relative;
+}
+
+div.about-me p {
+    opacity: 1;
+    margin: 0 auto;
+}
+
+div.about-me p a {
+    color: #0066aa;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div.about-me p a:hover {
+    text-decoration: underline;
+}
+
+section.elsewhere,
+section.about,
+section.work-intro,
+section.contact {
+    padding: 21px;
+    background-color: #ffffff;
+}
+
+.work-intro,
+section.testimonials,
+section.work {
+    width: 100%;
+    box-sizing:border-box;
+    float: left;
+}
+
+section#visual-biography {
+    padding: 21px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+.elsewhere ul li {
+    display: inline-block;
+    font-size: 1.2rem;
+    padding-right: .3rem
+}
+
+.elsewhere li::after {
+    content: "\2F";
+    font-weight: bold;
+    margin-left: .3rem;
+    color: #dfdfdf;
+}
+
+.elsewhere li:last-child::after {
+    display: none;
+}
+
+.elsewhere li a{
+    text-decoration: none;
+}
+
+.elsewhere li a:hover {
+    color: #0078c1!important;
+}
+
+
+.contact-me p,
+.contact-me p a {
+    font-size: 21px;
+}
+
+.contact-me p a {
+    text-decoration: underline;
+}
+
+/* 
+Visual biography section
+*/
+
+#visual-biography {
+    padding-bottom: 2.5rem;
+    width: 100%;
+}
+
+#visual-biography dl {
+    font-family: "proxima-nova", "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: .8rem;
+    font-weight: 300;
+    height: 30rem;
+    line-height: 1.2;
+    overflow: auto;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+#visual-biography dt {
+    background: #ffffff;
+    display: block;
+    font-weight: 600;
+    position: absolute;
+    top: 13.5rem;
+    width: 4.5rem;
+}
+
+#visual-biography dt span {
+    border-right: 1px dotted #e5e5e5;
+    height: 29.5rem;
+    left: 50%;
+    position: absolute;
+    top: -14.5rem;
+    width: 0;
+    z-index: 0;
+}
+
+#visual-biography dd {
+    margin: 0;
+    position: absolute;
+    width: 6.5rem;
+}
+
+
+#visual-biography .bio-82 + dd {
+    width: 5.2rem;
+}
+
+#visual-biography .bio-84 + dd {
+    width: 5.5rem;
+}
+
+#visual-biography .bio-88 + dd {
+    width: 5.5rem;
+}
+
+#visual-biography .bio-91 + dd {
+    width: 7.1rem;
+    top: 2.5rem;
+}
+
+#visual-biography .bio-91 + dd + dd {
+    width: 6.2rem;
+}
+
+#visual-biography .bio-94 + dd,
+#visual-biography .bio-94 + dd + dd {
+    width: 8rem;
+}
+
+#visual-biography .bio-06 + dd {
+    width: 5.9rem;
+}
+
+#visual-biography .bio-07 + dd {
+    width: 5.6rem;
+}
+
+.bio-85,
+.bio-85+ dd,
+.bio-85+ dd + dd {
+    left: 0rem;
+}
+.bio-85 + dd {
+    top: 6rem;
+    left: 0rem;
+}
+.bio-85 + dd + dd {
+    top: 19rem;
+}
+
+#visual-biography .tl-title-ee {
+    color: #474747;
+    display: inline-block;
+    font-size: 2.2rem;
+    opacity: 0.3;
+    position: absolute;
+    top: 4.6rem;
+    width: 13.1rem;
+}
+
+#visual-biography .tl-title-ld {
+    color: #474747;
+    display: inline-block;
+    font-size: 2.2rem;
+    opacity: 0.3;
+    position: absolute;
+    top: -4.8rem;
+    width: 14.1rem;
+}
+
+.media-object {
+    border-collapse: collapse;
+    border-top: 23px solid #0078c1;
+    box-sizing: border-box;
+    margin-bottom: 2.5rem;
+    width: 100%;
+}
+
+div.testimonials {
+    box-sizing: border-box;
+    margin-top: 1rem;
+    padding: 34px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+div.testimonials .face-img {
+    margin-right: 34px;
+}
+
+div.testimonials h3 {
+    margin-bottom: 13px;
+}
+
+aside {
+    display: inline-block;
+    vertical-align: top;
+}
+
+aside.work {
+    float: right;
+}
+
+aside h2 {
+    color: #f7b42c;
+    display: inline-block;
+    font-size: 18px;
+    margin: 0 0 21px 0;
+    padding: 8px 13px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+aside h2.mellow-yellow {
+    background: #fdf0d5;
+    border-left: 5px solid #fce4b3;
+    color: #f7b42c;
+}
+
+aside h2.sky-blue {
+    background: #daf1ff;
+    border-left: 5px solid #bce6ff;
+    color: #4bf;
+}
+
+aside h2.purple {
+    background: #fdebf3;
+    border-left: 5px solid #eddbe3;
+    color: #f49ac1;
+}
+
+aside h2.green-meanie {
+    background: #eef6dc;
+    border-left: 5px solid #e0efc0;
+    color: #aad450;
+}
+
+aside li {
+    list-style-type: square;
+    list-style: initial;
+    margin-left: 2rem;
+}
+
+aside .aside-wrap {
+    background-color: #ffffff;
+    margin-bottom: 55px;
+}
+
+.bio-86,
+.bio-86+ dd,
+.bio-86+ dd + dd {
+    left: 3.5rem;
+}
+.bio-86 + dd {
+    top: 8rem;
+    left: 4rem;
+}
+.bio-86 + dd + dd {
+    top: 17rem;
+}
+
+.bio-87,
+.bio-87 + dd,
+.bio-87 + dd + dd {
+    left: 7rem;
+}
+.bio-87 + dd {
+    top: 2rem;
+}
+.bio-87 + dd + dd {
+    top: 23rem;
+}
+
+.bio-88,
+.bio-88 + dd,
+.bio-88 + dd + dd {
+    left: 10.5rem;
+}
+.bio-88 + dd {
+    top: 4.5rem;
+}
+.bio-88 + dd + dd {
+    top: 17rem;
+}
+
+.bio-89,
+.bio-89 + dd,
+.bio-89 + dd + dd {
+    left: 14rem;
+}
+.bio-89 + dd {
+    top: 5rem;
+}
+.bio-89 + dd + dd {
+    top: 19rem;
+}
+
+.bio-90,
+.bio-90 + dd,
+.bio-90 + dd +dd {
+    left: 17.5rem;
+}
+.bio-90 + dd {
+    left: 22.1rem;
+    top: 20.5rem;
+}
+.bio-90 + dd + dd {
+    top: 5.5rem;
+}
+
+.bio-91,
+.bio-91 + dd,
+.bio-91 + dd + dd {
+    left: 21rem;
+}
+.bio-91 + dd {
+    left: 20rem;
+}
+.bio-91 + dd + dd {
+    left: 21.5rem;
+    top: 23.5rem;
+}
+
+.bio-92,
+.bio-92 + dd,
+.bio-92 + dd + dd {
+    left: 24.5rem;
+}
+.bio-92 + dd {
+    top: 8.5rem;
+    left: 24.5rem;
+}
+.bio-92 + dd + dd {
+    top: 16.5rem;
+    left: 24.5rem;
+}
+
+.bio-93,
+.bio-93 + dd,
+.bio-93 + dd + dd {
+    top: 4.5rem;
+    left: 28rem;
+}
+.bio-93 + dd {
+    left: 28rem;
+}
+.bio-93 + dd + dd {
+    left: 28rem;
+}
+
+.bio-94,
+.bio-94 + dd,
+.bio-94 + dd + dd {
+    top: 2.5rem;
+    left: 31.5rem;
+}
+.bio-94 + dd {
+    left: 31.5rem;
+}
+.bio-94 + dd + dd {
+    left: 31.5rem;
+    top: 21rem;
+}
+
+.bio-95,
+.bio-95 + dd,
+.bio-95 + dd + dd {
+    left: 35rem;
+}
+.bio-95 + dd {
+    top: 8rem;
+}
+.bio-95 + dd + dd {
+    top: 18rem;
+}
+
+.bio-96,
+.bio-96 + dd,
+.bio-96 + dd + dd {
+    left: 38.5rem;
+}
+.bio-96 + dd {
+    top: 3.5rem;
+}
+.bio-96 + dd + dd {
+    top: 17rem;
+}
+
+.bio-97,
+.bio-97 + dd {
+    left: 42rem;
+}
+.bio-97 + dd {
+    top: 27rem;
+}
+
+.bio-98,
+.bio-98 + dd,
+.bio-98 + dd + dd {
+    left: 45.5rem;
+}
+.bio-98 + dd {
+    top: 8rem;
+}
+.bio-98 + dd + dd {
+    top: 21rem;
+}
+
+.bio-99,
+.bio-99 + dd,
+.bio-99 + dd + dd {
+    left: 49rem;
+}
+.bio-99 + dd {
+    top: 1.5rem;
+}
+.bio-99 + dd + dd {
+    top: 18rem;
+}
+
+.bio-00,
+.bio-00 + dd,
+.bio-00 + dd + dd {
+    left: 52.5rem;
+}
+.bio-00 + dd {
+    top: 5rem;
+    left: 52.5rem;
+}
+.bio-00 + dd + dd {
+    top: 16rem;
+    width: 7.5rem!important;
+}
+
+.bio-01,
+.bio-01 + dd,
+.bio-01 + dd + dd {
+    left: 56rem;
+}
+.bio-01 + dd {
+    top: 6.5rem;
+    left: 56rem;
+}
+.bio-01 + dd + dd {
+    top: 21rem;
+}
+
+.bio-02,
+.bio-02 + dd,
+.bio-02 + dd + dd {
+    left: 59.5rem;
+}
+.bio-02 + dd {
+    top: 3.5rem;
+}
+.bio-02 + dd + dd {
+    top: 23rem;
+}
+
+.bio-03,
+.bio-03 + dd,
+.bio-03 + dd + dd {
+    left: 63rem;
+}
+.bio-03 + dd {
+    top: 8rem;
+}
+.bio-03 + dd + dd {
+    top: 18rem;
+}
+
+.bio-04,
+.bio-04 + dd,
+.bio-04 + dd + dd {
+    left: 66.5rem;
+}
+.bio-04 + dd {
+    top: 2.5rem;
+}
+.bio-04 + dd + dd {
+    top: 16rem;
+    width: 8rem!important;
+}
+
+.bio-05,
+.bio-05 + dd {
+    left: 70rem;
+}
+.bio-05 + dd {
+}
+.bio-05 + dd + dd {
+    top: 22.5rem;
+}
+
+.bio-06,
+.bio-06 + dd,
+.bio-06 + dd + dd {
+    left: 73.5rem;
+}
+.bio-06 + dd {
+    top: 9rem;
+}
+.bio-06 + dd + dd {
+    top: 23rem;
+}
+
+.bio-07,
+.bio-07 + dd,
+.bio-07 + dd + dd {
+    left: 77rem;
+}
+.bio-07 + dd {
+    top: 2.5rem;
+}
+.bio-07 + dd + dd {
+    top: 21rem;
+}
+
+.bio-08,
+.bio-08 + dd,
+.bio-08 + dd + dd {
+    left: 80.5rem;
+}
+.bio-08 + dd {
+    top: 2.5rem;
+}
+.bio-08 + dd + dd {
+    top: 18rem;
+}
+
+.bio-09,
+.bio-09 + dd,
+.bio-09 + dd + dd {
+    left: 84rem;
+}
+.bio-09 + dd {
+    top: 7.5rem;
+}
+.bio-09 + dd + dd {
+    top: 25rem;
+}
+
+.bio-10,
+.bio-10 + dd,
+.bio-10 + dd + dd {
+    left: 87.5rem;
+}
+.bio-10 + dd {
+    top: 2.5rem;
+}
+.bio-10 + dd + dd {
+    top: 21rem;
+}
+
+.bio-11,
+.bio-11 + dd,
+.bio-11 + dd + dd {
+    left: 91rem;
+}
+.bio-11 + dd {
+    top: 2.5rem;
+}
+.bio-11 + dd + dd {
+    top: 17rem;
+}
+
+.bio-12,
+.bio-12 + dd,
+.bio-12 + dd + dd {
+    left: 94.5rem;
+}
+.bio-12 + dd {
+    top: 2.5rem;
+}
+.bio-12 + dd + dd {
+    top: 23rem;
+    width: 12rem!important;
+}
+
+.bio-13,
+.bio-13 + dd,
+.bio-13 + dd + dd {
+    left: 98rem;
+}
+.bio-13 + dd {
+    top: 2.5rem;
+}
+.bio-13 + dd + dd {
+    top: 23rem;
+}
+
+.bio-14,
+.bio-14 + dd,
+.bio-14 + dd + dd {
+    left: 101.5rem;
+}
+.bio-14 + dd {
+    top: 2.5rem;
+}
+.bio-14 + dd + dd {
+    top: 18rem;
+}
+
+.bio-15,
+.bio-15 + dd,
+.bio-15 + dd + dd {
+    left: 105rem;
+}
+.bio-15 + dd {
+    top: 2.5rem;
+}
+.bio-15 + dd + dd {
+    top: 18rem;
+}
+
+.bio-16,
+.bio-16 + dd,
+.bio-16 + dd + dd {
+    left: 108.5rem;
+}
+.bio-16 + dd {
+    top: 2.5rem;
+}
+.bio-16 + dd + dd {
+    top: 18rem;
+}
+
+#visual-biography dd span {
+    display: none;
+}
+
+.job-spec {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 5% 34px 0;
+    float: left;
+    background-color: #ffffff;
+    position: relative;
+    box-shadow: 0px 3px 3px #dfdfdf;
+}
+
+.job-spec:nth-child(3) {
+    margin-right: 0;
+}
+
+.job-spec > p {
+    padding: 13px 21px;
+}
+
+.job-title {
+    font-weight: bold;
+    background-color: #4285f4;
+    color: #ffffff;
+    text-align: center;
+    padding: 13px;
+}
+
+.company-name {
+    margin: 0;
+    border-top: 1px solid #dfdfdf;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+aside p,
+aside ul {
+    padding-left: 21px;
+    padding-right: 21px;
+    padding-bottom: 21px;
+}
+
+@media screen and (min-width: 862px) {
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+/* 
+Main navigation
+*/
+
+nav li::after {
+    font-size: 2.4rem;
+}
+
+nav h1 {
+    font-size: 2.4rem;
+}
+
+nav a:after {
+    width: .2rem;
+}
+
+.job-spec {
+    width: 30%;
+    min-height: 510px;
+    margin-bottom: 0;
+}
+
+.company-name {
+    position: absolute;
+}
+
+.elsewhere ul li {
+    font-size: 1.8rem;
+}
+
+section.work {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+aside {
+    box-sizing: border-box;
+    padding-left: 34px;
+    width: 34%;
+}
+
+.left-col {
+    width: 66%;
+    box-sizing:border-box;
+    float: left;
+}
+
+div.testimonials .face-img {
+        position: absolute;
+        left: 34px;
+        top: 34px;
+}
+
+div.testimonials h3,
+div.testimonials p {
+    min-height: auto;
+    margin-bottom: 21px;
+    padding-left: 134px;
+}
+
+section.elsewhere,
+section.about,
+section.work-intro,
+section.contact {
+    padding: 34px 55px;
+    background-color: #ffffff;
+}
+
+}
+
