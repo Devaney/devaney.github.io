@@ -1,0 +1,18 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Liam Devaney's Portfolio",
+  "description": "A way to teach phonics to children!",
+  "short_name": "LiamDev",
+  "icons": [{
+    "src": "/images/liamdevaney-ico.png",
+      "type": "image/png",
+      "sizes": "192x192"
+  }
+  ],
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "theme_color": "#3eb459",
+  "background_color": "#000000",
+  "start_url": "/"
+}
