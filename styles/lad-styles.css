@@ -144,7 +144,9 @@ button.menu-btn {
   text-align: left;
 }
 
-p.skill-description {
+p.skill-description a {
+  text-decoration-line: underline;
+  text-underline-offset: 0.12em;
 }
 
 img.skill-icon {
