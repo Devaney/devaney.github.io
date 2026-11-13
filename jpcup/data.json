@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T20:57:00Z",
+  "updated": "2026-11-13T21:18:00Z",
   "players": [
     "Kieran",
     "Dave",
@@ -112,5 +112,7 @@
       "b": null
     }
   ],
-  "scores": {}
+  "scores": {
+    "R1-1": [1, 0]
+  }
 }
