@@ -5,29 +5,44 @@
   // Do not scrollIntoView the chip — that used to fight the section jump.
   var nav = document.querySelector(".nav");
 
+  function openDetailsFor(el) {
+    if (!el) return;
+    var node = el;
+    // Open the element's own details, any ancestor details, and a direct
+    // child details (e.g. a subject card article wrapping one accordion).
+    if (el.tagName === "DETAILS") el.open = true;
+    var child = el.querySelector && el.querySelector(":scope > details");
+    if (child) child.open = true;
+    while (node) {
+      if (node.tagName === "DETAILS") node.open = true;
+      node = node.parentElement;
+    }
+  }
+
   function scrollToSection(id) {
     var section = document.getElementById(id);
     if (!section) return;
+    openDetailsFor(section);
     var navHeight = nav ? nav.offsetHeight : 0;
     var top = window.scrollY + section.getBoundingClientRect().top - navHeight - 4;
     window.scrollTo(0, Math.max(0, top));
   }
 
-  if (nav) {
-    nav.addEventListener("click", function (event) {
-      var link = event.target.closest("a[href^='#']");
-      if (!link) return;
-      var href = link.getAttribute("href");
-      if (!href || href === "#") return;
-      var id = href.slice(1);
-      if (!document.getElementById(id)) return;
-      event.preventDefault();
-      scrollToSection(id);
-      if (history.replaceState) {
-        history.replaceState(null, "", href);
-      }
-    });
+  function handleHashLink(event) {
+    var link = event.target.closest("a[href^='#']");
+    if (!link || link.getAttribute("target") === "_blank") return;
+    var href = link.getAttribute("href");
+    if (!href || href === "#") return;
+    var id = href.slice(1);
+    if (!document.getElementById(id)) return;
+    event.preventDefault();
+    scrollToSection(id);
+    if (history.replaceState) {
+      history.replaceState(null, "", href);
+    }
   }
+
+  document.addEventListener("click", handleHashLink);
 
   // Open any in-document hash on load (e.g. shared link).
   if (location.hash && location.hash.length > 1) {
@@ -36,6 +51,24 @@
       window.setTimeout(function () { scrollToSection(startId); }, 0);
     }
   }
+
+  window.addEventListener("hashchange", function () {
+    if (location.hash && location.hash.length > 1) {
+      scrollToSection(location.hash.slice(1));
+    }
+  });
+
+  // Open all / Close all — subjects section only
+  document.querySelectorAll("[data-fold]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var root = document.querySelector(btn.getAttribute("data-root") || "#subjects");
+      if (!root) return;
+      var open = btn.getAttribute("data-fold") === "open";
+      root.querySelectorAll(".card > details").forEach(function (d) {
+        d.open = open;
+      });
+    });
+  });
 
   // --- Your list ---------------------------------------------------------
   var KEY = "bella-subject-list-v1";
@@ -150,10 +183,12 @@
       html += '<button type="button" class="clear-mark" data-id="' + escapeHtml(id) + '"' + (mark ? "" : " disabled") + ' aria-label="Clear mark for ' + escapeHtml(s.name) + '">Clear</button>';
       html += '</div>';
       html += '</div>';
+      html += '<details class="play-reasons">';
+      html += '<summary>Reasons</summary>';
       html += '<div class="reasons">';
       html += '<div class="draw"><div class="rk">Might draw you to it</div>' + listItems(s.mightDrawYou) + '</div>';
       html += '<div class="weigh"><div class="rk">Things to weigh up</div>' + listItems(s.thingsToWeighUp) + '</div>';
-      html += '</div>';
+      html += '</div></details>';
       html += '</li>';
     });
     listEl.innerHTML = html;
