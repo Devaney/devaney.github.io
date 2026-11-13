@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13T20:00:00Z",
+  "updated": "2026-11-13T20:55:00Z",
   "players": [
     "Kieran",
     "Dave",
@@ -25,27 +25,92 @@
     "Karim"
   ],
   "teams": [
-    { "id": "T1", "players": ["", ""] },
-    { "id": "T2", "players": ["", ""] },
-    { "id": "T3", "players": ["", ""] },
-    { "id": "T4", "players": ["", ""] },
-    { "id": "T5", "players": ["", ""] },
-    { "id": "T6", "players": ["", ""] },
-    { "id": "T7", "players": ["", ""] },
-    { "id": "T8", "players": ["", ""] },
-    { "id": "T9", "players": ["", ""] },
-    { "id": "T10", "players": ["", ""] },
-    { "id": "T11", "players": ["", ""] }
+    {
+      "id": "T1",
+      "players": ["Kieran", "Luke"]
+    },
+    {
+      "id": "T2",
+      "players": ["Dave", "Pat"]
+    },
+    {
+      "id": "T3",
+      "players": ["Aman", "Chris"]
+    },
+    {
+      "id": "T4",
+      "players": ["Adrian", "H"]
+    },
+    {
+      "id": "T5",
+      "players": ["Eoin", "David"]
+    },
+    {
+      "id": "T6",
+      "players": ["Josh", "Karim"]
+    },
+    {
+      "id": "T7",
+      "players": ["", ""]
+    },
+    {
+      "id": "T8",
+      "players": ["", ""]
+    },
+    {
+      "id": "T9",
+      "players": ["", ""]
+    },
+    {
+      "id": "T10",
+      "players": ["", ""]
+    },
+    {
+      "id": "T11",
+      "players": ["", ""]
+    }
   ],
   "round1": [
-    { "id": "R1-1", "a": "T1", "b": "T2" },
-    { "id": "R1-2", "a": "T7", "b": null },
-    { "id": "R1-3", "a": "T3", "b": "T4" },
-    { "id": "R1-4", "a": "T8", "b": null },
-    { "id": "R1-5", "a": "T5", "b": "T6" },
-    { "id": "R1-6", "a": "T9", "b": null },
-    { "id": "R1-7", "a": "T10", "b": null },
-    { "id": "R1-8", "a": "T11", "b": null }
+    {
+      "id": "R1-1",
+      "a": "T1",
+      "b": "T2"
+    },
+    {
+      "id": "R1-2",
+      "a": "T7",
+      "b": null
+    },
+    {
+      "id": "R1-3",
+      "a": "T3",
+      "b": "T4"
+    },
+    {
+      "id": "R1-4",
+      "a": "T8",
+      "b": null
+    },
+    {
+      "id": "R1-5",
+      "a": "T5",
+      "b": "T6"
+    },
+    {
+      "id": "R1-6",
+      "a": "T9",
+      "b": null
+    },
+    {
+      "id": "R1-7",
+      "a": "T10",
+      "b": null
+    },
+    {
+      "id": "R1-8",
+      "a": "T11",
+      "b": null
+    }
   ],
   "scores": {}
 }
