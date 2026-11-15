@@ -1191,7 +1191,7 @@
         ["Partner", partner]
       ].filter((pair) => pair[1].length).map((pair) =>
         '<div class="rel-block"><h3>' + pair[0] + '</h3><div class="chips">' +
-        chips(pair[1].map((x) => x.id)) + "</div></div>"
+        chips(pair[1]) + "</div></div>"
       ).join("");
 
       cardBody.innerHTML =
@@ -1202,13 +1202,13 @@
           (p.rel ? "<span>" + escapeHtml(p.rel) + "</span>" : "") +
           '<span class="badge ' + escapeHtml(p.conf || "") + '">' + escapeHtml(confLabel(p.conf)) + "</span>" +
         "</div>" +
+        nav +
         field("Birth", p.birth) +
         field("Place", p.birthPlace) +
         field("Marriage", p.marriage) +
         field("Death", p.death) +
         field("Notes", p.note) +
-        (sources ? '<div class="field"><h3>Sources</h3><div class="sources">' + sources + "</div></div>" : "") +
-        nav;
+        (sources ? '<div class="field"><h3>Sources</h3><div class="sources">' + sources + "</div></div>" : "");
 
       cardBody.querySelectorAll("[data-go]").forEach((btn) => {
         btn.addEventListener("click", () => openPerson(btn.getAttribute("data-go"), { push: true }));
