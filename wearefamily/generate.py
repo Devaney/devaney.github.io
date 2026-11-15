@@ -116,7 +116,19 @@ def is_uncertain(text: str) -> bool:
     return any(marker in lowered for marker in UNCERTAIN_MARKERS)
 
 
+# Family testimony of 15 Nov 2026. For each root, treat as confirmed deceased:
+# the person, their siblings, every ancestor, and those ancestors' siblings.
+# Do not infer anyone outside these lines.
+# P058 and P059 are the two roots on the maternal side (both grandparents).
+# PATERNAL_NEWER_ANCHOR is a later generation: only that person's parents and
+# older (including those ancestors' siblings) are added, not the anchor's
+# own siblings or anyone in the same generation.
+CONFIRMED_LINE_ROOTS = ("P058", "P059")
+PATERNAL_NEWER_ANCHOR = "P002"
+
+
 def is_confirmed_deceased(row: dict) -> bool:
+    """Sheet-only rule: explicit deceased status, or a death date/year that is not uncertain."""
     status = cell_str(row.get("Status")).lower()
     if status == "living":
         return False
@@ -126,6 +138,100 @@ def is_confirmed_deceased(row: dict) -> bool:
     if death and not is_uncertain(death):
         return True
     return False
+
+
+def _parent_child_indexes(people: list[dict]):
+    known = {cell_str(row.get("ID")) for row in people}
+    parents: dict[str, tuple[str, str]] = {}
+    children: dict[str, list[str]] = defaultdict(list)
+    for row in people:
+        pid = cell_str(row.get("ID"))
+        father = cell_str(row.get("Father ID"))
+        mother = cell_str(row.get("Mother ID"))
+        parents[pid] = (father, mother)
+        if father:
+            children[father].append(pid)
+        if mother:
+            children[mother].append(pid)
+    return known, parents, children
+
+
+def _siblings_of(pid: str, parents: dict, children: dict) -> set[str]:
+    father, mother = parents.get(pid, ("", ""))
+    sibs: set[str] = set()
+    if father:
+        sibs.update(children.get(father, []))
+    if mother:
+        sibs.update(children.get(mother, []))
+    sibs.discard(pid)
+    return sibs
+
+
+def _ancestors_of(pid: str, parents: dict, known: set[str]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    stack = [item for item in parents.get(pid, ("", "")) if item]
+    while stack:
+        current = stack.pop()
+        if not current or current in seen or current not in known:
+            continue
+        seen.add(current)
+        out.append(current)
+        father, mother = parents.get(current, ("", ""))
+        if father:
+            stack.append(father)
+        if mother:
+            stack.append(mother)
+    return out
+
+
+def _line_from_root(root: str, parents: dict, children: dict, known: set[str]) -> set[str]:
+    ids: set[str] = set()
+    if root not in known:
+        return ids
+    ids.add(root)
+    ids.update(_siblings_of(root, parents, children))
+    ancestors = _ancestors_of(root, parents, known)
+    ids.update(ancestors)
+    for ancestor in ancestors:
+        ids.update(_siblings_of(ancestor, parents, children))
+    return ids
+
+
+def testimony_confirmed_ids(people: list[dict]) -> tuple[set[str], list[str]]:
+    """IDs to treat as deceased from family testimony, plus any Living conflicts.
+
+    Conflicts (explicitly Living, so not published) are returned as IDs only.
+    """
+    by_id = {cell_str(row.get("ID")): row for row in people}
+    known, parents, children = _parent_child_indexes(people)
+    ids: set[str] = set()
+    for root in CONFIRMED_LINE_ROOTS:
+        ids |= _line_from_root(root, parents, children, known)
+    father, mother = parents.get(PATERNAL_NEWER_ANCHOR, ("", ""))
+    for root in (father, mother):
+        if root:
+            ids |= _line_from_root(root, parents, children, known)
+
+    confirmed: set[str] = set()
+    conflicts: list[str] = []
+    for pid in sorted(ids, key=lambda value: int(value[1:]) if value[1:].isdigit() else value):
+        row = by_id.get(pid)
+        if not row:
+            continue
+        if cell_str(row.get("Status")).lower() == "living":
+            conflicts.append(pid)
+        else:
+            confirmed.add(pid)
+    return confirmed, conflicts
+
+
+def is_publishable(row: dict, testimony_ids: set[str]) -> bool:
+    if cell_str(row.get("Status")).lower() == "living":
+        return False
+    if is_confirmed_deceased(row):
+        return True
+    return cell_str(row.get("ID")) in testimony_ids
 
 
 def first_year(text: str) -> str | None:
@@ -151,6 +257,12 @@ def parse_known_as(first: str) -> tuple[str, str | None]:
 
 
 def display_name(first: str, surname: str, maiden: str) -> tuple[str, str, str | None]:
+    first_clean = first.strip()
+    if PLACEHOLDER_RE.match(first_clean) or PLACEHOLDER_RE.match(first_clean.strip("()").strip()):
+        label = "Name not yet known"
+        if surname.strip():
+            return label, f"{surname.strip()} ({label.lower()})", None
+        return label, label, None
     legal_first, known_as = parse_known_as(first)
     surname = surname.strip()
     if known_as:
@@ -180,6 +292,9 @@ def years_label(row: dict) -> str:
     by = first_year(birth_text)
     dy = first_year(death_text)
     approx = bool(re.search(r"\b(c\.|approx|about)\b", birth_text, re.I))
+    after = bool(re.search(r"\bafter\b", birth_text, re.I))
+    if after and by and not dy:
+        return f"after {by}"
     if by and dy:
         return f"{'c. ' if approx else ''}{by}–{dy}"
     if by:
@@ -270,10 +385,19 @@ def living_terms(people: list[dict]) -> list[str]:
             if not given:
                 continue
             for sur in surnames:
+                given_tok = re.sub(r"[^A-Za-z']", "", (given.split()[0] if given else "")).lower()
+                # Skip a living first-name + family-surname phrase when both
+                # also belong to historical people (keeps period source leads).
+                if given_tok in protected_firsts and sur.lower() in protected_firsts:
+                    continue
                 phrases.add(f"{given} {sur}")
-            # Bare given names are only listed when no token is a historical name.
+            # Multi-word givens are always listed (for example a first name
+            # plus an initial). Bare given names are listed only when no token
+            # is also a historical name.
             tokens = [re.sub(r"[^A-Za-z']", "", tok).lower() for tok in given.split()]
-            if given.lower() not in protected_firsts and all(
+            if " " in given:
+                phrases.add(given)
+            elif given.lower() not in protected_firsts and all(
                 (not tok or tok not in protected_firsts) for tok in tokens
             ):
                 phrases.add(given)
@@ -287,6 +411,82 @@ def living_terms(people: list[dict]) -> list[str]:
     all_terms = {p for p in phrases if len(p) > 2}
     all_terms.update(unique_firsts)
     return sorted(all_terms, key=lambda s: (-len(s), s.lower()))
+
+
+# Filled during build() so "X's 1949 birth" clauses can be removed even when
+# the first name is also used by a historical person. Not a publish list.
+_BIRTH_CLAUSE_FIRSTS: list[str] = []
+_LIVING_SURNAMES: set[str] = set()
+
+_SAINT_PLACE_RE = re.compile(r"\bSt\.?\s+[A-Za-z]+(?:'s)?\b")
+
+
+def _stash_saint_places(text: str) -> tuple[str, dict[str, str]]:
+    held: dict[str, str] = {}
+
+    def stash(match: re.Match) -> str:
+        key = f"[[PLACE{len(held)}]]"
+        held[key] = match.group(0)
+        return key
+
+    return _SAINT_PLACE_RE.sub(stash, text), held
+
+
+def _restore_saint_places(text: str, held: dict[str, str]) -> str:
+    for key, value in held.items():
+        text = text.replace(key, value)
+    return text
+
+
+def _set_birth_clause_firsts(people: list[dict]) -> None:
+    names: set[str] = set()
+    for row in people:
+        if cell_str(row.get("Status")).lower() != "living":
+            continue
+        first = cell_str(row.get("First name(s)"))
+        first = re.sub(r"\s*\(\?\)\s*", " ", first).strip()
+        if not first or PLACEHOLDER_RE.match(first):
+            continue
+        legal, _known = parse_known_as(first)
+        token = legal.split()[0] if legal else ""
+        token = re.sub(r"[^A-Za-z']", "", token)
+        if len(token) > 2:
+            names.add(token)
+    global _BIRTH_CLAUSE_FIRSTS
+    _BIRTH_CLAUSE_FIRSTS = sorted(names, key=lambda value: (-len(value), value.lower()))
+
+
+def _set_living_surnames(people: list[dict]) -> None:
+    surnames: set[str] = set()
+    for row in people:
+        if cell_str(row.get("Status")).lower() != "living":
+            continue
+        for key in ("Surname", "Birth surname (if different)"):
+            value = re.sub(r"[^A-Za-z']", "", cell_str(row.get(key)))
+            if len(value) > 2:
+                surnames.add(value.lower())
+    global _LIVING_SURNAMES
+    _LIVING_SURNAMES = surnames
+
+
+def _follows_historical_surname(match: re.Match) -> bool:
+    """True when a bare first name is followed by a historical (not living) surname."""
+    after = match.string[match.end():]
+    followed = re.match(r"\s+([A-Z][A-Za-z']+)", after)
+    if not followed:
+        return False
+    return followed.group(1).lower() not in _LIVING_SURNAMES
+
+
+def _replace_living_term(text: str, term: str) -> str:
+    pattern = re.compile(rf"\b{re.escape(term)}\b", re.I)
+    if " " in term or not _LIVING_SURNAMES:
+        return pattern.sub(" ", text)
+
+    def repl(match: re.Match) -> str:
+        return match.group(0) if _follows_historical_surname(match) else " "
+
+    return pattern.sub(repl, text)
 
 
 def _phrase_cleanup(text: str, terms: list[str]) -> str:
@@ -334,6 +534,13 @@ def _phrase_cleanup(text: str, terms: list[str]) -> str:
     out = re.sub(r"Had a son,[^.]*ex-wife[^.]*\.", "", out, flags=re.I)
     out = re.sub(r"Maiden name also matches[^.]+\.", "", out, flags=re.I)
     out = re.sub(r",?\s*WhatsApp", "", out, flags=re.I)
+    for name in _BIRTH_CLAUSE_FIRSTS:
+        esc = re.escape(name)
+        out = re.sub(rf"and {esc}'s births?", "", out, flags=re.I)
+        out = re.sub(rf"{esc}'s \d{{4}} birth", "", out, flags=re.I)
+    out = re.sub(r"Mentioned\s*,\s*", "Mentioned ", out, flags=re.I)
+    out = re.sub(r",\s*courtesy of\.?", "", out, flags=re.I)
+    out = re.sub(r"courtesy of\.?", "", out, flags=re.I)
     return out
 
 
@@ -361,19 +568,34 @@ def _tidy(text: str) -> str:
     text = re.sub(r"Family-confirmed (?=[A-Z])", "Family-confirmed: ", text)
     text = re.sub(r"; Family-confirmed", ". Family-confirmed", text)
     # Capitalise the start of a sentence after we have removed a name.
-    text = re.sub(r"(^|[.!?]\s+)([a-z])", lambda m: m.group(1) + m.group(2).upper(), text)
+    # Do not treat "c." (circa) as a sentence start.
+    def _cap(match: re.Match) -> str:
+        if match.group(2) == "c" and match.string[match.end():].startswith("."):
+            return match.group(0)
+        return match.group(1) + match.group(2).upper()
+    text = re.sub(r"(^|[.!?]\s+)([a-z])", _cap, text)
     text = re.sub(r"\s+\)", ")", text)
     text = re.sub(r"\bIrishgenealogy\.ie\b", "irishgenealogy.ie", text)
+    text = re.sub(r"and\s+'s\s+\d{4} birth", "", text)
+    text = re.sub(r"\s+'s\s+\d{4} birth", "", text)
+    text = re.sub(r"fits (\w+'s)\s*,", r"fits \1 birth,", text, flags=re.I)
+    text = re.sub(r"\s+or [A-Z][A-Za-z]+/\s*\.", ".", text)
+    text = re.sub(r": believes ", ": a relative believes ", text, flags=re.I)
+    text = re.sub(r"\bBelieves ", "A relative believes ", text)
+    text = re.sub(r"\s+\.", ".", text)
+    text = re.sub(r"\s{2,}", " ", text)
     return text.strip(" \t,;+/")
 
 
 def sanitize(text: str, terms: list[str]) -> str:
     if not text:
         return ""
-    out = _phrase_cleanup(text, terms)
+    out, saint_places = _stash_saint_places(text)
+    out = _phrase_cleanup(out, terms)
     for term in terms:
-        out = re.sub(rf"\b{re.escape(term)}\b", " ", out, flags=re.I)
-    return _tidy(out)
+        out = _replace_living_term(out, term)
+    out = _tidy(out)
+    return _restore_saint_places(out, saint_places)
 
 
 def parse_sources(text: str, terms: list[str]) -> list[dict]:
@@ -507,10 +729,16 @@ def living_names_for_check(people: list[dict], terms: list[str]) -> list[str]:
 
 
 def find_leaks(blob: str, names: list[str]) -> list[str]:
+    # Ignore saint or place forms such as "St Kevin's" so a street on a
+    # historical record is not treated as a living person's name.
+    masked, _held = _stash_saint_places(blob)
     hits = []
     for name in names:
-        if re.search(rf"\b{re.escape(name)}\b", blob, flags=re.I):
-            hits.append(name)
+        pattern = re.compile(rf"\b{re.escape(name)}\b", re.I)
+        for match in pattern.finditer(masked):
+            if " " in name or not _follows_historical_surname(match):
+                hits.append(name)
+                break
     return hits
 
 
@@ -521,6 +749,9 @@ def build(xlsx_path: Path) -> tuple[dict, dict]:
         "",
     )
     terms = living_terms(people)
+    _set_birth_clause_firsts(people)
+    _set_living_surnames(people)
+    testimony_ids, testimony_conflicts = testimony_confirmed_ids(people)
 
     published, excluded_living, excluded_unclear = [], [], []
     for row in people:
@@ -529,7 +760,7 @@ def build(xlsx_path: Path) -> tuple[dict, dict]:
         first = cell_str(row.get("First name(s)"))
         surname = cell_str(row.get("Surname"))
         label = f"{pid} {first} {surname}".strip()
-        if is_confirmed_deceased(row):
+        if is_publishable(row, testimony_ids):
             published.append(row)
         elif status == "living":
             excluded_living.append(label)
@@ -637,6 +868,7 @@ def build(xlsx_path: Path) -> tuple[dict, dict]:
         "published": out_people,
         "excluded_living": excluded_living,
         "excluded_unclear": excluded_unclear,
+        "testimony_conflicts": testimony_conflicts,
         "terms": living_names_for_check(people, terms),
     }
     return data, stats
@@ -679,6 +911,10 @@ def main() -> int:
         print(f"  {person['id']}  {person['fullName']}  {person['years']}  [{person['conf']}]")
     print(f"Excluded as living: {len(stats['excluded_living'])}")
     print(f"Excluded as unclear: {len(stats['excluded_unclear'])}")
+    if stats["testimony_conflicts"]:
+        print("Testimony conflicts (marked Living, not published):")
+        for pid in stats["testimony_conflicts"]:
+            print(f"  {pid}")
     return 0
 
 

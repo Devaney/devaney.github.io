@@ -10,7 +10,7 @@
       "rel": "Great-great-grandfather (mum's side; Robert's father)",
       "side": "c",
       "conf": "probable",
-      "birth": "C. 1850 (aged 53 at death on 19 Mar 1903)",
+      "birth": "c. 1850 (aged 53 at death on 19 Mar 1903)",
       "birthPlace": "Agnew's Lane, Larne, at marriage (1871) and at Robert’s birth (1879); died Main Street, Larne",
       "marriage": "High confidence: married Mary Ann McConell, 29 Oct 1871, Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2760065).",
       "death": "19 Mar 1903",
@@ -33,11 +33,141 @@
           "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
         }
       ],
-      "father": null,
+      "father": "P111",
       "mother": null,
-      "partner": null,
+      "partner": "P110",
       "siblings": [],
-      "children": []
+      "children": [
+        "P089"
+      ]
+    },
+    {
+      "id": "P089",
+      "name": "Robert Donaghy",
+      "fullName": "Robert Donaghy",
+      "maiden": "",
+      "years": "b. 1879",
+      "rel": "Great-grandfather (mum's side)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "19 Oct 1879",
+      "birthPlace": "Agnew's Lane, Larne, Co. Antrim (civil birth); of Newtown, Carnlough at the 1906 marriage",
+      "marriage": "Probable match: married Ellen Magill, 30 Sep 1906, RC chapel of Carnlough, Glenarm/Larne, Co. Antrim (https://www.irishgenealogy.ie/view/?record_id=cima-1881497). Not yet family-confirmed. Supporting testimony from , 14 Nov 2026: possible that Nan's mum's maiden name was Magill; well-to-do Belfast Magill cousins are a lead only.",
+      "death": "",
+      "note": "Family-confirmed as Phyllis's father. PROBABLE MATCH (record confirmed, not yet confirmed by family): married Ellen Magill on 30 Sep 1906 at the RC chapel of Carnlough, Glenarm/Larne, Co. Antrim (https://www.irishgenealogy.ie/view/?record_id=cima-1881497). Robert was of full age, a bachelor and labourer, of Newtown, Carnlough; father William John Donaghy (occupation possibly steward, uncertain). Witnesses Thomas Magill and Mary McKendry. Five later Larne civil births with father Donaghy and mother Magill are treated as Phyllis's probable siblings. HIGH CONFIDENCE civil birth: Robert Donaghy, 19 Oct 1879, Agnew’s Lane, Larne, father William John Donaghy (labourer), mother Mary Ann Donaghy formerly McConell (https://www.irishgenealogy.ie/view/?record_id=cibi-8839727). This is the same couple as the 29 Oct 1871 Larne marriage. The link from this Robert to Phyllis still depends on the probable 1906 Carnlough marriage, which is not yet family-confirmed. SUPPORTING TESTIMONY (14 Nov 2026): she said it is possible Nan's mum's maiden name was Magill, and she remembers talk of well-to-do cousins called Magill who lived in Belfast. This supports the probable 1906 Carnlough identification of Ellen Magill as Phyllis's mother, but does not fully confirm it. The Belfast Magill cousins are a lead only, not added as people.",
+      "sources": [
+        {
+          "label": "Marriage, 30 Sep 1906, Carnlough",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+        },
+        {
+          "label": "Birth, 19 Oct 1879, Agnew’s Lane, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+        }
+      ],
+      "father": "P100",
+      "mother": "P110",
+      "partner": "P090",
+      "siblings": [],
+      "children": [
+        "P059",
+        "P102",
+        "P103",
+        "P104",
+        "P105",
+        "P106"
+      ]
+    },
+    {
+      "id": "P090",
+      "name": "Ellen Donaghy",
+      "fullName": "Ellen Donaghy",
+      "maiden": "Magill",
+      "years": "b. c. 1886",
+      "rel": "Great-grandmother (mum's side)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "c. 1886–88 (a minor in Sep 1906)",
+      "birthPlace": "Newtown, Carnlough, Co. Antrim (at marriage, 1906)",
+      "marriage": "Probable match: Robert Donaghy married Ellen Magill, 30 Sep 1906, RC chapel of Carnlough, Glenarm/Larne, Co. Antrim (https://www.irishgenealogy.ie/view/?record_id=cima-1881497). Not yet family-confirmed. Supporting testimony from , 14 Nov 2026: possible that Nan's mum's maiden name was Magill; well-to-do Belfast Magill cousins are a lead only.",
+      "death": "",
+      "note": "Family-confirmed as Phyllis's mother. PROBABLE MATCH (record confirmed, not yet confirmed by family): maiden name Magill. Married Robert Donaghy on 30 Sep 1906 at the RC chapel of Carnlough, Glenarm/Larne, Co. Antrim (https://www.irishgenealogy.ie/view/?record_id=cima-1881497). Ellen was a minor (so born about 1886–88), of Newtown, Carnlough; father Thomas Magill, labourer. Witnesses Thomas Magill and Mary McKendry. Five Larne civil births with parents Donaghy and Magill are treated as Phyllis's probable siblings. PROBABLE / MODERATE: her mother is likely Mary Magill née Wilson, from Thomas Magill’s 27 Nov 1879 marriage at Glenarm, parish of Tickmacrevan (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). Ellen’s own birth has not yet been linked, so this identification is less certain than the Donaghy side. A competing lead (not added as people): Thomas Magill married Catherine McKendry on 6 Sep 1885 in Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2341190); Mary McKendry was a witness at the 1906 Donaghy–Magill marriage. SUPPORTING TESTIMONY (14 Nov 2026): she said it is possible Nan's mum's maiden name was Magill, and she remembers talk of well-to-do cousins called Magill who lived in Belfast. This supports the probable 1906 Carnlough identification of Ellen Magill as Phyllis's mother, but does not fully confirm it. The Belfast Magill cousins are a lead only, not added as people.",
+      "sources": [
+        {
+          "label": "Marriage, 30 Sep 1906, Carnlough",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+        },
+        {
+          "label": "Probable parents’ marriage, 27 Nov 1879, Glenarm",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+        }
+      ],
+      "father": "P101",
+      "mother": "P113",
+      "partner": "P089",
+      "siblings": [],
+      "children": [
+        "P059",
+        "P102",
+        "P103",
+        "P104",
+        "P105",
+        "P106"
+      ]
+    },
+    {
+      "id": "P088",
+      "name": "Mary Bridget Cooke",
+      "fullName": "Mary Bridget Cooke",
+      "maiden": "Connor / O'Connor",
+      "years": "b. c. 1888",
+      "rel": "Great-grandmother (mum's side)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "c. 1888–89 (26 in 1915; 37 in 1926)",
+      "birthPlace": "Of Crossdrum at marriage, 1915; children registered in Castlerea",
+      "marriage": "Confirmed: William Cooke married Mary Bridget Connor, 17 Mar 1915, RC Chapel of Ballinacree, Oldcastle, Co. Meath (https://www.irishgenealogy.ie/view/?record_id=cima-1785815).",
+      "death": "",
+      "note": "Family-confirmed from the 1926 Irish census (14 Nov 2026): Mary Cooke, aged 37 in 1926. Full name Mary Bridget Cooke, née Connor (marriage) / O'Connor (on all five children's Castlerea civil births). CONFIRMED marriage: 17 Mar 1915 at the RC Chapel of Ballinacree, Oldcastle district, Co. Meath (https://www.irishgenealogy.ie/view/?record_id=cima-1785815). She was 26, a spinster, of Crossdrum; father John Connor, labourer. Witnesses Philip Faughnan and Julia Ward. Born about 1888–89. Death not found in Castlerea civil deaths 1927–75; no Irish civil birth for 1888–89 has been identified. John Connor's marriage has not been found either.",
+      "sources": [
+        {
+          "label": "Marriage, 17 Mar 1915, Ballinacree, Oldcastle",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+        },
+        {
+          "label": "Edward's birth (mother O Connor)",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1494087"
+        },
+        {
+          "label": "William's birth",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1580726"
+        },
+        {
+          "label": "John's birth",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1655605"
+        },
+        {
+          "label": "George's birth",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1918024"
+        },
+        {
+          "label": "Ester's birth",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1954577"
+        }
+      ],
+      "father": "P098",
+      "mother": null,
+      "partner": "P087",
+      "siblings": [],
+      "children": [
+        "P058",
+        "P091",
+        "P092",
+        "P093",
+        "P094",
+        "P095",
+        "P096"
+      ]
     },
     {
       "id": "P087",
@@ -67,12 +197,346 @@
           "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
         }
       ],
-      "father": null,
-      "mother": null,
-      "partner": null,
+      "father": "P097",
+      "mother": "P107",
+      "partner": "P088",
       "siblings": [],
       "children": [
-        "P058"
+        "P058",
+        "P091",
+        "P092",
+        "P093",
+        "P094",
+        "P095",
+        "P096"
+      ]
+    },
+    {
+      "id": "P102",
+      "name": "Michael Donaghy",
+      "fullName": "Michael Donaghy",
+      "maiden": "",
+      "years": "b. 1907",
+      "rel": "Probable great-uncle (mum's side; probable sibling of Phyllis)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "25 Nov 1907",
+      "birthPlace": "Larne / Carnlough, Co. Antrim (birth registered Larne)",
+      "marriage": "",
+      "death": "",
+      "note": "PROBABLE sibling of Phyllis: Larne civil birth, father Donaghy, mother Magill. Not yet confirmed by family. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-311420.",
+      "sources": [
+        {
+          "label": "Michael Donaghy, 25 Nov 1907, Larne, parents Donaghy and Magill",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-311420"
+        }
+      ],
+      "father": "P089",
+      "mother": "P090",
+      "partner": null,
+      "siblings": [
+        "P059",
+        "P103",
+        "P104",
+        "P105",
+        "P106"
+      ],
+      "children": []
+    },
+    {
+      "id": "P103",
+      "name": "Mary Donaghy",
+      "fullName": "Mary Donaghy",
+      "maiden": "",
+      "years": "b. 1909",
+      "rel": "Probable great-aunt (mum's side; probable sibling of Phyllis)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "8 Sep 1909",
+      "birthPlace": "Larne / Carnlough, Co. Antrim (birth registered Larne)",
+      "marriage": "",
+      "death": "",
+      "note": "PROBABLE sibling of Phyllis: Larne civil birth, father Donaghy, mother Magill. Not yet confirmed by family. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-77816.",
+      "sources": [
+        {
+          "label": "Mary Donaghy, 8 Sep 1909, Larne, parents Donaghy and Magill",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-77816"
+        }
+      ],
+      "father": "P089",
+      "mother": "P090",
+      "partner": null,
+      "siblings": [
+        "P059",
+        "P102",
+        "P104",
+        "P105",
+        "P106"
+      ],
+      "children": []
+    },
+    {
+      "id": "P104",
+      "name": "William Donaghy",
+      "fullName": "William Donaghy",
+      "maiden": "",
+      "years": "b. 1913",
+      "rel": "Probable great-uncle (mum's side; probable sibling of Phyllis)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "9 Jun 1913",
+      "birthPlace": "Larne / Carnlough, Co. Antrim (birth registered Larne)",
+      "marriage": "",
+      "death": "",
+      "note": "PROBABLE sibling of Phyllis: Larne civil birth, father Donaghy, mother Magill. Not yet confirmed by family. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-1182393.",
+      "sources": [
+        {
+          "label": "William Donaghy, 9 Jun 1913, Larne, parents Donaghy and Magill",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1182393"
+        }
+      ],
+      "father": "P089",
+      "mother": "P090",
+      "partner": null,
+      "siblings": [
+        "P059",
+        "P102",
+        "P103",
+        "P105",
+        "P106"
+      ],
+      "children": []
+    },
+    {
+      "id": "P105",
+      "name": "Catherine Donaghy",
+      "fullName": "Catherine Donaghy",
+      "maiden": "",
+      "years": "b. 1915",
+      "rel": "Probable great-aunt (mum's side; probable sibling of Phyllis)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "1 Aug 1915",
+      "birthPlace": "Larne / Carnlough, Co. Antrim (birth registered Larne)",
+      "marriage": "",
+      "death": "",
+      "note": "PROBABLE sibling of Phyllis: Larne civil birth, father Donaghy, mother Magill. Not yet confirmed by family. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-105120.",
+      "sources": [
+        {
+          "label": "Catherine Donaghy, 1 Aug 1915, Larne, parents Donaghy and Magill",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-105120"
+        }
+      ],
+      "father": "P089",
+      "mother": "P090",
+      "partner": null,
+      "siblings": [
+        "P059",
+        "P102",
+        "P103",
+        "P104",
+        "P106"
+      ],
+      "children": []
+    },
+    {
+      "id": "P091",
+      "name": "Eddie Cooke",
+      "fullName": "Edward Peter Cooke",
+      "maiden": "",
+      "years": "b. 1915",
+      "rel": "Great-uncle (mum's side; John's brother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "28 Jun 1915",
+      "birthPlace": "Castlerea, Co. Roscommon (birth registered)",
+      "marriage": "",
+      "death": "",
+      "note": "John James Cooke's sibling. Age 10 on the 1926 Irish census (14 Nov 2026). Known as Eddie. Civil birth registered in Castlerea, Co. Roscommon, mother's maiden surname O Connor. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-1494087. He was the informant, present at his father William's death on 26 Mar 1947 at Church Road, Castlerea (https://www.irishgenealogy.ie/view/?record_id=cide-2744819).",
+      "sources": [
+        {
+          "label": "Birth, 28 Jun 1915, Castlerea, mother O Connor",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1494087"
+        },
+        {
+          "label": "Informant on father's death, 26 Mar 1947",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cide-2744819"
+        }
+      ],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P092",
+        "P093",
+        "P094",
+        "P095",
+        "P096"
+      ],
+      "children": []
+    },
+    {
+      "id": "P056",
+      "name": "Bill Devaney",
+      "fullName": "William J Devaney",
+      "maiden": "",
+      "years": "1917–1983",
+      "rel": "Grandfather (dad's side)",
+      "side": "d",
+      "conf": "probable",
+      "birth": "22 Mar 1917 (possible, unconfirmed)",
+      "birthPlace": "",
+      "marriage": "Married Jul–Sep 1947, Bournemouth district (FreeBMD 6b/489; William J Devaney and Sarah A Nevin) — supporting index evidence",
+      "death": "1983 (possible, Hammersmith)",
+      "note": "Family-confirmed as Bill, Tony's father. Supporting index: FreeBMD marriage Sep qtr 1947, Bournemouth 6b/489, William J Devaney = Sarah A Nevin (fits Tony's birth, mother Nevin). Possible, unconfirmed index match: William Joseph Devaney, born 22 Mar 1917, died 1983 in Hammersmith (FreeBMD 12/1488). A possible matching birth is Mar 1917, Birmingham, mother Twonlow, 6d/514. Confirm dates with a certificate. LEADS ONLY, NOT ADDED AS PEOPLE (14 Nov 2026): a relative believes dad's family came from Strandhill, Co. Sligo. Three low-to-medium Sligo candidates for Bill, none in Strandhill: (1) William Joseph Devaney, born 22 Mar 1917 at Dromore, Collooney district, parents John Devaney (farmer) and Margaret McGoldrick (https://www.irishgenealogy.ie/view/?record_id=cibi-1604220); parents married 7 Sep 1903 at Ballintogher (https://www.irishgenealogy.ie/view/?record_id=cima-1991339). (2) William John Devaney, born 1 Sep 1907 at Liggan, Carney district, parents Michael Devaney and Anne Jinks (https://www.irishgenealogy.ie/view/?record_id=cibi-629989); they married 9 Feb 1905 at Rathcormack, index spelling Michael Devanny (https://www.irishgenealogy.ie/view/?record_id=cima-1956049). (3) William Devanny, born 3 Jul 1917 at Dromore West, parents Thomas Devany and Anne Brennan/Queenan (https://www.irishgenealogy.ie/view/?record_id=cibi-1640810). The 1947 Bournemouth marriage certificate (£12.50) would name both fathers; confirm before ordering.",
+      "sources": [
+        {
+          "label": "FreeBMD marriage, Bournemouth Sep 1947, 6b/489",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "Possible FreeBMD death, Hammersmith 1983, 12/1488 (unconfirmed)",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "Possible FreeBMD birth, Birmingham Mar 1917, 6d/514, mother Twonlow (unconfirmed)",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "Leads only, not added as people — possible Sligo births and parental marriages",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1604220"
+        },
+        {
+          "label": "Source",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1991339"
+        },
+        {
+          "label": "Source",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-629989"
+        },
+        {
+          "label": "Source",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1956049"
+        },
+        {
+          "label": "Source",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1640810"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": "P057",
+      "siblings": [],
+      "children": [
+        "P002",
+        "P020"
+      ]
+    },
+    {
+      "id": "P092",
+      "name": "Billy Cooke",
+      "fullName": "William Joseph Cooke",
+      "maiden": "",
+      "years": "b. 1917",
+      "rel": "Great-uncle (mum's side; John's brother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "29 Jan 1917",
+      "birthPlace": "Castlerea, Co. Roscommon (birth registered)",
+      "marriage": "",
+      "death": "",
+      "note": "John James Cooke's sibling. Age 9 on the 1926 Irish census (14 Nov 2026). Known as Billy. Civil birth registered in Castlerea, Co. Roscommon, mother's maiden surname O Connor. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-1580726.",
+      "sources": [
+        {
+          "label": "William Cooke, 29 Jan 1917, Castlerea, mother O Connor",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1580726"
+        }
+      ],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P091",
+        "P093",
+        "P094",
+        "P095",
+        "P096"
+      ],
+      "children": []
+    },
+    {
+      "id": "P106",
+      "name": "Margaret Donaghy",
+      "fullName": "Margaret Donaghy",
+      "maiden": "",
+      "years": "b. 1917",
+      "rel": "Probable great-aunt (mum's side; probable sibling of Phyllis)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "1 Apr 1917",
+      "birthPlace": "Larne / Carnlough, Co. Antrim (birth registered Larne)",
+      "marriage": "",
+      "death": "",
+      "note": "PROBABLE sibling of Phyllis: Larne civil birth, father Donaghy, mother Magill. Not yet confirmed by family. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-39305.",
+      "sources": [
+        {
+          "label": "Margaret Donaghy, 1 Apr 1917, Larne, parents Donaghy and Magill",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-39305"
+        }
+      ],
+      "father": "P089",
+      "mother": "P090",
+      "partner": null,
+      "siblings": [
+        "P059",
+        "P102",
+        "P103",
+        "P104",
+        "P105"
+      ],
+      "children": []
+    },
+    {
+      "id": "P057",
+      "name": "Sadie Devaney",
+      "fullName": "Sarah A Devaney",
+      "maiden": "Nevin",
+      "years": "1917–1993",
+      "rel": "Grandmother (dad's side)",
+      "side": "d",
+      "conf": "probable",
+      "birth": "14 Feb 1917 (possible, unconfirmed)",
+      "birthPlace": "",
+      "marriage": "Married Jul–Sep 1947, Bournemouth district (FreeBMD 6b/489) — supporting index evidence",
+      "death": "1993 (possible, Westminster)",
+      "note": "Family-confirmed as Sadie, Tony's mother (Sadie is the usual nickname for Sarah). Supporting index: FreeBMD marriage Sep qtr 1947, Bournemouth 6b/489, to William J Devaney; Nevin matches the mother's maiden name on William A Devaney's 1957 birth. Possible, unconfirmed index match: Sarah Devaney, born 14 Feb 1917, died 1993 in Westminster (2581D/115). Confirm dates with a certificate. LEAD ONLY, NOT ADDED AS A NEW PERSON (14 Nov 2026): a medium-confidence Irish civil birth for Sarah Anne Nevin, 11 Feb 1917 at Carrowmore, Sligo (near Strandhill); father Michael Nevin, labourer; mother Margaret Jane Nevin née Harte. The index lists Sarah Nevin, mother Harte (https://www.irishgenealogy.ie/view/?record_id=cibi-1594435). This is the only Sarah Nevin birth found in Sligo in 1905–25. A possible sibling, not on the tree, is Mary Nevin, 8 Jul 1914, Sligo, mother Harte (https://www.irishgenealogy.ie/view/?record_id=cibi-1143693). A relative believes dad's family came from Strandhill. The 14 Feb 1917 / 1993 Westminster index lead remains a competing unconfirmed possibility. The 1947 Bournemouth marriage certificate (£12.50) would name her father; confirm before ordering.",
+      "sources": [
+        {
+          "label": "FreeBMD marriage, Bournemouth Sep 1947, 6b/489",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "Possible FreeBMD death, Westminster 1993, 2581D/115 (unconfirmed)",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "Lead only, not added as a person — possible Sligo birth",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1594435"
+        },
+        {
+          "label": "Possible sibling Mary Nevin, 8 Jul 1914 (not on the tree)",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1143693"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": "P056",
+      "siblings": [],
+      "children": [
+        "P002",
+        "P020"
       ]
     },
     {
@@ -104,9 +568,49 @@
         }
       ],
       "father": "P087",
-      "mother": null,
+      "mother": "P088",
       "partner": "P059",
-      "siblings": [],
+      "siblings": [
+        "P091",
+        "P092",
+        "P093",
+        "P094",
+        "P095",
+        "P096"
+      ],
+      "children": []
+    },
+    {
+      "id": "P093",
+      "name": "George Cooke",
+      "fullName": "George Cooke",
+      "maiden": "",
+      "years": "b. 1921",
+      "rel": "Great-uncle (mum's side; John's brother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "7 Nov 1921",
+      "birthPlace": "Castlerea, Co. Roscommon (birth registered)",
+      "marriage": "",
+      "death": "",
+      "note": "John James Cooke's sibling. Age 4 on the 1926 Irish census (14 Nov 2026). Civil birth registered in Castlerea, Co. Roscommon, mother's maiden surname O Connor. Direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-1918024.",
+      "sources": [
+        {
+          "label": "George Cooke, 7 Nov 1921, Castlerea, mother O Connor",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1918024"
+        }
+      ],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P091",
+        "P092",
+        "P094",
+        "P095",
+        "P096"
+      ],
       "children": []
     },
     {
@@ -133,10 +637,109 @@
           "url": "https://probatesearch.service.gov.uk/"
         }
       ],
-      "father": null,
-      "mother": null,
+      "father": "P089",
+      "mother": "P090",
       "partner": "P058",
-      "siblings": [],
+      "siblings": [
+        "P102",
+        "P103",
+        "P104",
+        "P105",
+        "P106"
+      ],
+      "children": []
+    },
+    {
+      "id": "P094",
+      "name": "Pearly Burke",
+      "fullName": "Esther Margaret Burke",
+      "maiden": "Cooke",
+      "years": "b. 1924",
+      "rel": "Great-aunt (mum's side; John's sister)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "17 Apr 1924",
+      "birthPlace": "Of St Kevin's Terrace, Castlerea, at marriage in 1941; birth registered Castlerea",
+      "marriage": "Confirmed: married Thomas Burke, 8 Sep 1941, RC church, Castlerea (https://www.irishgenealogy.ie/view/?record_id=cima-1384668).",
+      "death": "",
+      "note": "John James Cooke's sister. Age 2 on the 1926 Irish census (14 Nov 2026). Known as Pearly. Civil birth registered as Ester (sic) Cooke, 17 Apr 1924, Castlerea, mother O Connor (https://www.irishgenealogy.ie/view/?record_id=cibi-1954577). CONFIRMED marriage: Esther Cooke married Thomas Burke on 8 Sep 1941 at the RC church, Castlerea (https://www.irishgenealogy.ie/view/?record_id=cima-1384668). She was born 1924, of St Kevin's Terrace; father William Cooke, postman.",
+      "sources": [
+        {
+          "label": "Birth, Ester Cooke, 17 Apr 1924, Castlerea",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1954577"
+        },
+        {
+          "label": "Marriage, 8 Sep 1941, Castlerea",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1384668"
+        }
+      ],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P091",
+        "P092",
+        "P093",
+        "P095",
+        "P096"
+      ],
+      "children": []
+    },
+    {
+      "id": "P095",
+      "name": "Name not yet known",
+      "fullName": "Cooke (name not yet known)",
+      "maiden": "",
+      "years": "after 1926",
+      "rel": "Great-aunt (mum's side; John's sister, born after 1926)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "After 1926",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Younger sister of John (first of two born after the 1926 census). Name not yet known. Mentioned 14 Nov 2026. A lead, not added to the tree: a Mary Cooke, father not yet checked, married Michael Galvin on 1 Jul 1940 in Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-1419882) — she could be one of these sisters.",
+      "sources": [],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P091",
+        "P092",
+        "P093",
+        "P094",
+        "P096"
+      ],
+      "children": []
+    },
+    {
+      "id": "P096",
+      "name": "Name not yet known",
+      "fullName": "Cooke (name not yet known)",
+      "maiden": "",
+      "years": "after 1926",
+      "rel": "Great-aunt (mum's side; John's sister, born after 1926)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "After 1926",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Younger sister of John (second of two born after the 1926 census). Name not yet known. Mentioned 14 Nov 2026. A lead, not added to the tree: a Mary Cooke, father not yet checked, married Michael Galvin on 1 Jul 1940 in Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-1419882) — she could be one of these sisters.",
+      "sources": [],
+      "father": "P087",
+      "mother": "P088",
+      "partner": null,
+      "siblings": [
+        "P058",
+        "P091",
+        "P092",
+        "P093",
+        "P094",
+        "P095"
+      ],
       "children": []
     },
     {
@@ -163,8 +766,8 @@
           "url": "https://www.gro.gov.uk/gro/content/certificates/"
         }
       ],
-      "father": null,
-      "mother": null,
+      "father": "P056",
+      "mother": "P057",
       "partner": null,
       "siblings": [
         "P002"
@@ -199,13 +802,377 @@
           "url": "https://www.freebmd.org.uk/cgi/search.pl"
         }
       ],
-      "father": null,
-      "mother": null,
+      "father": "P056",
+      "mother": "P057",
       "partner": null,
       "siblings": [
         "P020"
       ],
       "children": []
+    },
+    {
+      "id": "P097",
+      "name": "Edward Cooke",
+      "fullName": "Edward Cooke",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-grandfather (mum's side; William's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Of Bissara / Athleague district, Co. Roscommon, at the 1886 marriage (probable)",
+      "marriage": "Probable: married Ellen Kelly, 27 Feb 1886, Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049).",
+      "death": "",
+      "note": "Labourer. PROBABLE marriage: Edward Cooke married Ellen Kelly on 27 Feb 1886 at Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049). His father was Edward Cooke, miller. Supported by the probable 1888 Roscommon-district birth of William Cooke, which names father Edward Cooke (labourer) and mother Ellen Kelly (https://www.irishgenealogy.ie/view/?record_id=cibi-11250530). Also named as father, a labourer, on William’s confirmed 17 Mar 1915 marriage. A lead only, not added as a person and not linked: an Edward Cooke, married, a nailer, died in Roscommon in 1909 aged 47 (https://www.irishgenealogy.ie/view/?record_id=cide-5023379).",
+      "sources": [
+        {
+          "label": "Probable marriage, 27 Feb 1886, Bissara, Athleague",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+        },
+        {
+          "label": "Probable son William’s birth, 1888, Roscommon district",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+        },
+        {
+          "label": "Named on son’s 1915 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+        }
+      ],
+      "father": "P108",
+      "mother": null,
+      "partner": "P107",
+      "siblings": [],
+      "children": [
+        "P087"
+      ]
+    },
+    {
+      "id": "P108",
+      "name": "Edward Cooke",
+      "fullName": "Edward Cooke",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; Edward Cooke the labourer's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Miller. Named as father on the probable 27 Feb 1886 marriage of his son Edward Cooke (labourer) to Ellen Kelly, at Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049). Wife’s name not yet known. A lead only, not linked to him: an Edward Cooke, married, a nailer, died in Roscommon in 1909 aged 47 (https://www.irishgenealogy.ie/view/?record_id=cide-5023379).",
+      "sources": [
+        {
+          "label": "Named on son’s 1886 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P097"
+      ]
+    },
+    {
+      "id": "P107",
+      "name": "Ellen Cooke",
+      "fullName": "Ellen Cooke",
+      "maiden": "Kelly",
+      "years": "",
+      "rel": "Great-great-grandmother (mum's side; William's mother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Of Bissara / Athleague district, Co. Roscommon, at the 1886 marriage (probable)",
+      "marriage": "Probable: married Edward Cooke, 27 Feb 1886, Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049).",
+      "death": "",
+      "note": "Maiden name Kelly. PROBABLE marriage: Edward Cooke (labourer) married Ellen Kelly on 27 Feb 1886 at Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049). Her father was James Kelly, a farmer. Supported by the probable 1888 Roscommon-district birth of William Cooke, mother Ellen Kelly (https://www.irishgenealogy.ie/view/?record_id=cibi-11250530).",
+      "sources": [
+        {
+          "label": "Probable marriage, 27 Feb 1886, Bissara, Athleague",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+        },
+        {
+          "label": "Probable son William’s birth, 1888, Roscommon district",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+        }
+      ],
+      "father": "P109",
+      "mother": null,
+      "partner": "P097",
+      "siblings": [],
+      "children": [
+        "P087"
+      ]
+    },
+    {
+      "id": "P109",
+      "name": "James Kelly",
+      "fullName": "James Kelly",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; Ellen Kelly's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Farmer. Named as father on the probable 27 Feb 1886 marriage of his daughter Ellen Kelly to Edward Cooke, at Bissara, Athleague district, Co. Roscommon (https://www.irishgenealogy.ie/view/?record_id=cima-2378049). Wife’s name not yet known.",
+      "sources": [
+        {
+          "label": "Named on daughter’s 1886 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P107"
+      ]
+    },
+    {
+      "id": "P112",
+      "name": "James McConell",
+      "fullName": "James McConell",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; Mary Ann McConell's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Labourer. Named as father on the high-confidence 29 Oct 1871 Larne marriage of his daughter Mary Ann McConell to William John Donaghy (https://www.irishgenealogy.ie/view/?record_id=cima-2760065). The civil index spells the surname Mcconell; it is kept as McConell here, as on the records. Wife’s name not yet known.",
+      "sources": [
+        {
+          "label": "Named on daughter’s 1871 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P110"
+      ]
+    },
+    {
+      "id": "P115",
+      "name": "James Wilson",
+      "fullName": "James Wilson",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; Mary Wilson’s father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Farmer. Named as father on the probable 27 Nov 1879 Glenarm marriage of his daughter Mary Wilson to Thomas Magill (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). Wife’s name not yet known. Identification of that marriage with Ellen Magill’s parents is probable/moderate; Ellen’s birth is not yet linked.",
+      "sources": [
+        {
+          "label": "Named on daughter’s 1879 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P113"
+      ]
+    },
+    {
+      "id": "P114",
+      "name": "Jeremiah Magill",
+      "fullName": "Jeremiah Magill",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; Thomas Magill’s father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Tailor. Named as father on the probable 27 Nov 1879 Glenarm marriage of his son Thomas Magill to Mary Wilson (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). Wife’s name not yet known. Identification of that marriage with Ellen Magill’s parents is probable/moderate; Ellen’s birth is not yet linked.",
+      "sources": [
+        {
+          "label": "Named on son’s 1879 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P101"
+      ]
+    },
+    {
+      "id": "P098",
+      "name": "John Connor",
+      "fullName": "John Connor",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-grandfather (mum's side; Mary Bridget's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Crossdrum (from daughter's 1915 marriage)",
+      "marriage": "",
+      "death": "",
+      "note": "Named on the confirmed 17 Mar 1915 marriage of his daughter Mary Bridget Connor, of Crossdrum, to William Cooke, RC Chapel of Ballinacree, Oldcastle, Co. Meath. Occupation: labourer. Wife's name not yet known. A 1901/1911 census search of Crossdrum (Oldcastle DED, Co. Meath) is still to do.",
+      "sources": [
+        {
+          "label": "Named on daughter's 1915 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P088"
+      ]
+    },
+    {
+      "id": "P110",
+      "name": "Mary Ann Donaghy",
+      "fullName": "Mary Ann Donaghy",
+      "maiden": "McConell",
+      "years": "",
+      "rel": "Great-great-grandmother (mum's side; Robert's mother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Agnew's Lane, Larne, Co. Antrim (at marriage, 1871, and Robert’s birth, 1879); informant of her husband’s 1903 death, Main Street, Larne",
+      "marriage": "High confidence: married William John Donaghy, 29 Oct 1871, Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2760065).",
+      "death": "",
+      "note": "Maiden name McConell (cconell on the 1871 civil index; Mary Ann, formerly McConell, on Robert’s birth). HIGH CONFIDENCE marriage: William John Donaghy married Mary Ann McConell on 29 Oct 1871 in Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2760065). Her father was James McConell, a labourer. Their son Robert was born on 19 Oct 1879 on Agnew’s Lane, Larne (https://www.irishgenealogy.ie/view/?record_id=cibi-8839727). She was the informant, as his wife, at William John’s death on 19 Mar 1903 on Main Street, Larne (https://www.irishgenealogy.ie/view/?record_id=cide-4630955).",
+      "sources": [
+        {
+          "label": "Marriage, 29 Oct 1871, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+        },
+        {
+          "label": "Son Robert’s birth, 19 Oct 1879, Agnew’s Lane, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+        },
+        {
+          "label": "Informant on husband’s death, 19 Mar 1903",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cide-4630955"
+        }
+      ],
+      "father": "P112",
+      "mother": null,
+      "partner": "P100",
+      "siblings": [],
+      "children": [
+        "P089"
+      ]
+    },
+    {
+      "id": "P113",
+      "name": "Mary Magill",
+      "fullName": "Mary Magill",
+      "maiden": "Wilson",
+      "years": "",
+      "rel": "Great-great-grandmother (mum's side; Ellen’s probable mother)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Glenarm / Carnlough, Co. Antrim (at the 1879 marriage, probable)",
+      "marriage": "Probable/moderate: married Thomas Magill, 27 Nov 1879, Glenarm, parish of Tickmacrevan (https://www.irishgenealogy.ie/view/?record_id=cima-2666378).",
+      "death": "",
+      "note": "Maiden name Wilson. PROBABLE / MODERATE marriage: Thomas Magill (agricultural labourer, of Carnlough) married Mary Wilson on 27 Nov 1879 at Glenarm, parish of Tickmacrevan (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). Her father was James Wilson, a farmer. Marked probable/moderate because Ellen Magill’s birth has not yet been linked to this couple. A competing lead, not added as people: Thomas Magill married Catherine McKendry on 6 Sep 1885 in Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2341190).",
+      "sources": [
+        {
+          "label": "Probable marriage, 27 Nov 1879, Glenarm",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+        }
+      ],
+      "father": "P115",
+      "mother": null,
+      "partner": "P101",
+      "siblings": [],
+      "children": [
+        "P090"
+      ]
+    },
+    {
+      "id": "P111",
+      "name": "Michael Donaghy",
+      "fullName": "Michael Donaghy",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-great-grandfather (mum's side; William John Donaghy's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "",
+      "marriage": "",
+      "death": "",
+      "note": "Carter. Named as father on the high-confidence 29 Oct 1871 Larne marriage of his son William John Donaghy to Mary Ann McConell (https://www.irishgenealogy.ie/view/?record_id=cima-2760065). Wife’s name not yet known.",
+      "sources": [
+        {
+          "label": "Named on son’s 1871 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P100"
+      ]
+    },
+    {
+      "id": "P101",
+      "name": "Thomas Magill",
+      "fullName": "Thomas Magill",
+      "maiden": "",
+      "years": "",
+      "rel": "Great-great-grandfather (mum's side; Ellen's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "",
+      "birthPlace": "Carnlough, Co. Antrim (agricultural labourer at the 1879 marriage; also from daughter’s 1906 marriage, Newtown, Carnlough)",
+      "marriage": "Probable/moderate: married Mary Wilson, 27 Nov 1879, Glenarm, parish of Tickmacrevan (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). Ellen’s birth not yet linked.",
+      "death": "",
+      "note": "PROBABLE / MODERATE. Agricultural labourer, of Carnlough. Probable marriage: Thomas Magill married Mary Wilson on 27 Nov 1879 at Glenarm, parish of Tickmacrevan (https://www.irishgenealogy.ie/view/?record_id=cima-2666378). His father was Jeremiah Magill, a tailor. This is marked probable/moderate because Ellen Magill’s birth has not yet been linked to this couple. Also named as father, a labourer, on the probable 30 Sep 1906 Carnlough marriage of Ellen Magill to Robert Donaghy; a witness was also named Thomas Magill. A competing lead, not added as people: Thomas Magill married Catherine McKendry on 6 Sep 1885 in Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2341190). Mary McKendry was a witness at the 1906 marriage.",
+      "sources": [
+        {
+          "label": "Probable marriage, 27 Nov 1879, Glenarm",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+        },
+        {
+          "label": "Named on daughter’s 1906 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+        },
+        {
+          "label": "Competing lead only — Thomas Magill and Catherine McKendry, 6 Sep 1885, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2341190"
+        }
+      ],
+      "father": "P114",
+      "mother": null,
+      "partner": "P113",
+      "siblings": [],
+      "children": [
+        "P090"
+      ]
     }
   ],
   "records": [
@@ -243,6 +1210,86 @@
     },
     {
       "type": "Marriage",
+      "who": "Robert Donaghy",
+      "detail": "Marriage, 30 Sep 1906, Carnlough",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+    },
+    {
+      "type": "Birth",
+      "who": "Robert Donaghy",
+      "detail": "Birth, 19 Oct 1879, Agnew’s Lane, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+    },
+    {
+      "type": "Marriage",
+      "who": "Ellen Donaghy",
+      "detail": "Marriage, 30 Sep 1906, Carnlough",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+    },
+    {
+      "type": "Marriage",
+      "who": "Ellen Donaghy",
+      "detail": "Probable parents’ marriage, 27 Nov 1879, Glenarm",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+    },
+    {
+      "type": "Marriage",
+      "who": "Mary Bridget Cooke",
+      "detail": "Marriage, 17 Mar 1915, Ballinacree, Oldcastle",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Bridget Cooke",
+      "detail": "Edward's birth (mother O Connor)",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1494087"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Bridget Cooke",
+      "detail": "William's birth",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1580726"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Bridget Cooke",
+      "detail": "John's birth",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1655605"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Bridget Cooke",
+      "detail": "George's birth",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1918024"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Bridget Cooke",
+      "detail": "Ester's birth",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1954577"
+    },
+    {
+      "type": "Marriage",
       "who": "William Cooke",
       "detail": "Marriage, 17 Mar 1915, Ballinacree, Oldcastle",
       "reference": "",
@@ -264,6 +1311,166 @@
       "reference": "",
       "confidence": "probable",
       "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+    },
+    {
+      "type": "Record",
+      "who": "Michael Donaghy",
+      "detail": "Michael Donaghy, 25 Nov 1907, Larne, parents Donaghy and Magill",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-311420"
+    },
+    {
+      "type": "Record",
+      "who": "Mary Donaghy",
+      "detail": "Mary Donaghy, 8 Sep 1909, Larne, parents Donaghy and Magill",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-77816"
+    },
+    {
+      "type": "Record",
+      "who": "William Donaghy",
+      "detail": "William Donaghy, 9 Jun 1913, Larne, parents Donaghy and Magill",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1182393"
+    },
+    {
+      "type": "Record",
+      "who": "Catherine Donaghy",
+      "detail": "Catherine Donaghy, 1 Aug 1915, Larne, parents Donaghy and Magill",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-105120"
+    },
+    {
+      "type": "Birth",
+      "who": "Edward Peter Cooke",
+      "detail": "Birth, 28 Jun 1915, Castlerea, mother O Connor",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1494087"
+    },
+    {
+      "type": "Death",
+      "who": "Edward Peter Cooke",
+      "detail": "Informant on father's death, 26 Mar 1947",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cide-2744819"
+    },
+    {
+      "type": "Marriage",
+      "who": "William J Devaney",
+      "detail": "FreeBMD marriage, Bournemouth Sep 1947, 6b/489",
+      "reference": "6b/489",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Death",
+      "who": "William J Devaney",
+      "detail": "Possible FreeBMD death, Hammersmith 1983, 12/1488 (unconfirmed)",
+      "reference": "12/1488",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Birth",
+      "who": "William J Devaney",
+      "detail": "Possible FreeBMD birth, Birmingham Mar 1917, 6d/514, mother Twonlow (unconfirmed)",
+      "reference": "6d/514",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Birth",
+      "who": "William J Devaney",
+      "detail": "Leads only, not added as people — possible Sligo births and parental marriages",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1604220"
+    },
+    {
+      "type": "Record",
+      "who": "William J Devaney",
+      "detail": "Source",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1991339"
+    },
+    {
+      "type": "Record",
+      "who": "William J Devaney",
+      "detail": "Source",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-629989"
+    },
+    {
+      "type": "Record",
+      "who": "William J Devaney",
+      "detail": "Source",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1956049"
+    },
+    {
+      "type": "Record",
+      "who": "William J Devaney",
+      "detail": "Source",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1640810"
+    },
+    {
+      "type": "Record",
+      "who": "William Joseph Cooke",
+      "detail": "William Cooke, 29 Jan 1917, Castlerea, mother O Connor",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1580726"
+    },
+    {
+      "type": "Record",
+      "who": "Margaret Donaghy",
+      "detail": "Margaret Donaghy, 1 Apr 1917, Larne, parents Donaghy and Magill",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-39305"
+    },
+    {
+      "type": "Marriage",
+      "who": "Sarah A Devaney",
+      "detail": "FreeBMD marriage, Bournemouth Sep 1947, 6b/489",
+      "reference": "6b/489",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Death",
+      "who": "Sarah A Devaney",
+      "detail": "Possible FreeBMD death, Westminster 1993, 2581D/115 (unconfirmed)",
+      "reference": "2581D/115",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Birth",
+      "who": "Sarah A Devaney",
+      "detail": "Lead only, not added as a person — possible Sligo birth",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1594435"
+    },
+    {
+      "type": "Record",
+      "who": "Sarah A Devaney",
+      "detail": "Possible sibling Mary Nevin, 8 Jul 1914 (not on the tree)",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1143693"
     },
     {
       "type": "Birth",
@@ -290,6 +1497,14 @@
       "url": "https://probatesearch.service.gov.uk/"
     },
     {
+      "type": "Record",
+      "who": "George Cooke",
+      "detail": "George Cooke, 7 Nov 1921, Castlerea, mother O Connor",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1918024"
+    },
+    {
       "type": "Death",
       "who": "Phyllis (Phillis / Philomena) Cooke",
       "detail": "GRO death index 511294357, Hounslow",
@@ -304,6 +1519,22 @@
       "reference": "4419073",
       "confidence": "confirmed",
       "url": "https://probatesearch.service.gov.uk/"
+    },
+    {
+      "type": "Birth",
+      "who": "Esther Margaret Burke",
+      "detail": "Birth, Ester Cooke, 17 Apr 1924, Castlerea",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1954577"
+    },
+    {
+      "type": "Marriage",
+      "who": "Esther Margaret Burke",
+      "detail": "Marriage, 8 Sep 1941, Castlerea",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1384668"
     },
     {
       "type": "Birth",
@@ -344,6 +1575,158 @@
       "reference": "",
       "confidence": "probable",
       "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Marriage",
+      "who": "Edward Cooke",
+      "detail": "Probable marriage, 27 Feb 1886, Bissara, Athleague",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+    },
+    {
+      "type": "Birth",
+      "who": "Edward Cooke",
+      "detail": "Probable son William’s birth, 1888, Roscommon district",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+    },
+    {
+      "type": "Marriage",
+      "who": "Edward Cooke",
+      "detail": "Named on son’s 1915 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+    },
+    {
+      "type": "Marriage",
+      "who": "Edward Cooke",
+      "detail": "Named on son’s 1886 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+    },
+    {
+      "type": "Marriage",
+      "who": "Ellen Cooke",
+      "detail": "Probable marriage, 27 Feb 1886, Bissara, Athleague",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+    },
+    {
+      "type": "Birth",
+      "who": "Ellen Cooke",
+      "detail": "Probable son William’s birth, 1888, Roscommon district",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+    },
+    {
+      "type": "Marriage",
+      "who": "James Kelly",
+      "detail": "Named on daughter’s 1886 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2378049"
+    },
+    {
+      "type": "Marriage",
+      "who": "James McConell",
+      "detail": "Named on daughter’s 1871 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+    },
+    {
+      "type": "Marriage",
+      "who": "James Wilson",
+      "detail": "Named on daughter’s 1879 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+    },
+    {
+      "type": "Marriage",
+      "who": "Jeremiah Magill",
+      "detail": "Named on son’s 1879 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+    },
+    {
+      "type": "Marriage",
+      "who": "John Connor",
+      "detail": "Named on daughter's 1915 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+    },
+    {
+      "type": "Marriage",
+      "who": "Mary Ann Donaghy",
+      "detail": "Marriage, 29 Oct 1871, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+    },
+    {
+      "type": "Birth",
+      "who": "Mary Ann Donaghy",
+      "detail": "Son Robert’s birth, 19 Oct 1879, Agnew’s Lane, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+    },
+    {
+      "type": "Death",
+      "who": "Mary Ann Donaghy",
+      "detail": "Informant on husband’s death, 19 Mar 1903",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cide-4630955"
+    },
+    {
+      "type": "Marriage",
+      "who": "Mary Magill",
+      "detail": "Probable marriage, 27 Nov 1879, Glenarm",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+    },
+    {
+      "type": "Marriage",
+      "who": "Michael Donaghy",
+      "detail": "Named on son’s 1871 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+    },
+    {
+      "type": "Marriage",
+      "who": "Thomas Magill",
+      "detail": "Probable marriage, 27 Nov 1879, Glenarm",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2666378"
+    },
+    {
+      "type": "Marriage",
+      "who": "Thomas Magill",
+      "detail": "Named on daughter’s 1906 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+    },
+    {
+      "type": "Record",
+      "who": "Thomas Magill",
+      "detail": "Competing lead only — Thomas Magill and Catherine McKendry, 6 Sep 1885, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2341190"
     }
   ]
 }
