@@ -351,13 +351,15 @@
       min-height: 44px;
       padding: 8px 14px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--wash);
-      color: var(--ink);
-      font: 600 15px/1.2 "Open Sans", sans-serif;
+      border: 2px solid var(--green);
+      background: #fff;
+      color: var(--green);
+      font: 700 15px/1.2 "Open Sans", sans-serif;
       cursor: pointer;
       text-align: left;
     }
+    .chip::after { content: "\203A"; margin-left: 10px; font-size: 20px; line-height: 1; }
+    .chip:active { background: var(--green); color: #fff; }
     .chip:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
     .chip .yrs { color: var(--muted); font-weight: 400; margin-left: 6px; }
 
