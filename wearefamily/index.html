@@ -486,46 +486,110 @@
     function confLabel(c) { return CONF[c] || c || ""; }
 
     function assignGenerations(list) {
-      const parent = {};
-      const find = (x) => (parent[x] === x ? x : (parent[x] = find(parent[x])));
-      const union = (a, b) => { a = find(a); b = find(b); if (a !== b) parent[a] = b; };
-      list.forEach((p) => { parent[p.id] = p.id; });
+      const uf = {};
+      const find = (x) => (uf[x] === x ? x : (uf[x] = find(uf[x])));
+      const unite = (a, b) => { a = find(a); b = find(b); if (a !== b) uf[a] = b; };
+      list.forEach((p) => { uf[p.id] = p.id; });
       list.forEach((p) => {
-        if (p.partner && byId[p.partner]) union(p.id, p.partner);
-        (p.siblings || []).forEach((s) => { if (byId[s]) union(p.id, s); });
+        if (p.partner && byId[p.partner]) unite(p.id, p.partner);
       });
-      const groups = {};
+
+      const groupParents = {};
       list.forEach((p) => {
-        const r = find(p.id);
-        (groups[r] ||= []).push(p.id);
+        const g = find(p.id);
+        (groupParents[g] ||= new Set());
+        ["father", "mother"].forEach((k) => {
+          if (p[k] && byId[p[k]]) groupParents[g].add(find(p[k]));
+        });
       });
-      const groupList = Object.values(groups).map((ids) => {
-        const years = ids.map((id) => yearOf(byId[id])).filter((y) => y != null);
-        const year = years.length ? years.reduce((a, b) => a + b, 0) / years.length : 0;
-        return { ids, year };
-      }).sort((a, b) => a.year - b.year);
+
+      const rel = {};
+      const visiting = {};
+      function depthOf(g) {
+        if (rel[g] != null) return rel[g];
+        if (visiting[g]) return 0;
+        visiting[g] = true;
+        let d = 0;
+        (groupParents[g] || []).forEach((pg) => {
+          if (pg !== g) d = larger(d, depthOf(pg) + 1);
+        });
+        visiting[g] = false;
+        rel[g] = d;
+        return d;
+      }
+      list.forEach((p) => { depthOf(find(p.id)); });
 
       const gen = {};
-      let cur = 0;
-      let prevYear = null;
-      groupList.forEach((g) => {
-        if (prevYear != null && g.year - prevYear >= 18) cur += 1;
-        g.ids.forEach((id) => { gen[id] = cur; });
-        prevYear = g.year || prevYear;
-      });
+      list.forEach((p) => { gen[p.id] = rel[find(p.id)]; });
 
+      // If a partner union placed a child more than one row below a parent,
+      // raise that parent (and their partner) so they sit immediately above.
       let changed = true, guard = 0;
       while (changed && guard++ < 24) {
         changed = false;
         list.forEach((p) => {
           ["father", "mother"].forEach((k) => {
             const par = p[k];
-            if (par && gen[par] != null && gen[p.id] <= gen[par]) {
-              gen[p.id] = gen[par] + 1;
-              const r = find(p.id);
-              groups[r].forEach((id) => { if (gen[id] < gen[p.id]) gen[id] = gen[p.id]; });
+            if (!par || !byId[par]) return;
+            const want = gen[p.id] - 1;
+            if (gen[par] < want) {
+              const delta = want - gen[par];
+              list.forEach((q) => {
+                if (find(q.id) === find(par)) gen[q.id] += delta;
+              });
+              changed = true;
+            } else if (gen[par] >= gen[p.id]) {
+              const delta = gen[par] + 1 - gen[p.id];
+              list.forEach((q) => {
+                if (find(q.id) === find(p.id)) gen[q.id] += delta;
+              });
               changed = true;
             }
+          });
+        });
+      }
+
+      // Align disconnected components so people of a similar age share a row.
+      const cf = {};
+      const cfind = (x) => (cf[x] === x ? x : (cf[x] = cfind(cf[x])));
+      const cunite = (a, b) => { a = cfind(a); b = cfind(b); if (a !== b) cf[a] = b; };
+      list.forEach((p) => { cf[p.id] = p.id; });
+      list.forEach((p) => {
+        if (p.partner && byId[p.partner]) cunite(p.id, p.partner);
+        if (p.father && byId[p.father]) cunite(p.id, p.father);
+        if (p.mother && byId[p.mother]) cunite(p.id, p.mother);
+      });
+      const comps = {};
+      list.forEach((p) => { (comps[cfind(p.id)] ||= []).push(p); });
+      const compList = Object.values(comps).sort((a, b) => b.length - a.length);
+      if (compList.length > 1) {
+        const ref = compList[0];
+        const yearsAt = {};
+        ref.forEach((p) => {
+          const y = yearOf(p);
+          if (y != null) (yearsAt[gen[p.id]] ||= []).push(y);
+        });
+        const medianAt = {};
+        Object.keys(yearsAt).forEach((g) => {
+          const ys = yearsAt[g].slice().sort((a, b) => a - b);
+          medianAt[g] = ys[Math.floor(ys.length / 2)];
+        });
+        const refGens = Object.keys(medianAt).map(Number);
+        compList.slice(1).forEach((comp) => {
+          const rootGen = smallest(comp.map((p) => gen[p.id]));
+          const rootYears = comp.filter((p) => gen[p.id] === rootGen).map(yearOf).filter((y) => y != null);
+          if (!rootYears.length || !refGens.length) return;
+          const mid = rootYears.slice().sort((a, b) => a - b)[Math.floor(rootYears.length / 2)];
+          let bestG = refGens[0], bestD = Math.abs(mid - medianAt[bestG]);
+          refGens.forEach((g) => {
+            const d = Math.abs(mid - medianAt[g]);
+            if (d < bestD) { bestD = d; bestG = g; }
+          });
+          const shift = bestG - rootGen;
+          if (!shift) return;
+          const root = cfind(comp[0].id);
+          list.forEach((p) => {
+            if (cfind(p.id) === root) gen[p.id] += shift;
           });
         });
       }
@@ -541,96 +605,276 @@
       const pos = {};
       const lines = [];
       const labels = [];
-      const placed = new Set();
+      const families = [];
+      const PARTNER_GAP = 28, SIB_GAP = 18, FAMILY_GAP = 64;
 
-      const unitsAt = {};
-      const seenPair = new Set();
-      list.forEach((p) => {
-        const g = gen[p.id];
-        (unitsAt[g] ||= []);
-        if (p.partner && byId[p.partner] && gen[p.partner] === g) {
-          const key = pairKey(p.id, p.partner);
-          if (seenPair.has(key)) return;
-          seenPair.add(key);
-          const ids = [p.id, p.partner].sort((a, b) => {
-            const ya = yearOf(byId[a]) || 0, yb = yearOf(byId[b]) || 0;
-            return ya - yb || a.localeCompare(b);
-          });
-          unitsAt[g].push({ row: ids, anchor: p.id });
-        } else if (!p.partner || !byId[p.partner] || gen[p.partner] !== g) {
-          unitsAt[g].push({ row: [p.id], anchor: p.id });
-        }
-      });
-
-      const gens = Object.keys(unitsAt).map(Number).sort((a, b) => a - b);
-      function rowW(u) { return u.row.length * BW + (u.row.length - 1) * PG; }
-      function parentOfUnit(u) {
-        for (const id of u.row) {
-          const p = byId[id];
-          if (p.father && byId[p.father]) return p.father;
-          if (p.mother && byId[p.mother]) return p.mother;
-        }
-        return null;
+      function partnerOf(id) {
+        const p = byId[id];
+        return (p && p.partner && byId[p.partner]) ? p.partner : "";
+      }
+      function arePartners(a, b) {
+        return a && b && partnerOf(a) === b;
+      }
+      function areSiblings(a, b) {
+        const pa = byId[a], pb = byId[b];
+        if (!pa || !pb) return false;
+        const fa = pa.father || "", ma = pa.mother || "";
+        const fb = pb.father || "", mb = pb.mother || "";
+        if (!fa && !ma) return false;
+        return fa === fb && ma === mb;
+      }
+      function childrenOfCouple(father, mother) {
+        const f = father || "", m = mother || "";
+        if (!f && !m) return [];
+        return list.filter((p) => (p.father || "") === f && (p.mother || "") === m).map((p) => p.id);
+      }
+      function sortByYear(ids) {
+        return ids.slice().sort((a, b) => {
+          const ya = yearOf(byId[a]), yb = yearOf(byId[b]);
+          if (ya != null && yb != null && ya !== yb) return ya - yb;
+          if (ya != null && yb == null) return -1;
+          if (ya == null && yb != null) return 1;
+          return a.localeCompare(b);
+        });
+      }
+      function coupleOrder(a, b) {
+        const aF = list.some((p) => p.father === a);
+        const bF = list.some((p) => p.father === b);
+        const aM = list.some((p) => p.mother === a);
+        const bM = list.some((p) => p.mother === b);
+        if (aF && !bF) return [a, b];
+        if (bF && !aF) return [b, a];
+        if (aM && !bM) return [b, a];
+        if (bM && !aM) return [a, b];
+        const ya = yearOf(byId[a]) || 0, yb = yearOf(byId[b]) || 0;
+        if (ya !== yb) return ya < yb ? [a, b] : [b, a];
+        return a < b ? [a, b] : [b, a];
+      }
+      function gapBetween(a, b) {
+        if (arePartners(a, b)) return PARTNER_GAP;
+        if (areSiblings(a, b)) return SIB_GAP;
+        return FAMILY_GAP;
       }
 
-      // Place top generation left to right, then each later generation
-      // under its parents, resolving overlaps as we go.
-      let xCursor = PAD;
-      (unitsAt[gens[0]] || []).sort((a, b) => {
-        const ya = yearOf(byId[a.row[0]]) || 0, yb = yearOf(byId[b.row[0]]) || 0;
-        return ya - yb;
-      }).forEach((u) => {
-        const y = PAD + (gens[0] || 0) * GH;
-        let x = xCursor;
-        u.row.forEach((id, i) => {
-          pos[id] = { x: x + i * (BW + PG), y };
+      const placed = new Set();
+      const order = {};
+      function appendAt(g, ids) {
+        const row = (order[g] ||= []);
+        (ids || []).forEach((id) => {
+          if (!id || !byId[id] || placed.has(id)) return;
+          row.push(id);
           placed.add(id);
         });
-        xCursor += rowW(u) + UG * 2;
-      });
+      }
 
-      gens.slice(1).forEach((g) => {
-        const y = PAD + g * GH;
-        const units = (unitsAt[g] || []).slice().sort((a, b) => {
-          const pa = parentOfUnit(a), pb = parentOfUnit(b);
-          const xa = pa && pos[pa] ? pos[pa].x : 1e9;
-          const xb = pb && pos[pb] ? pos[pb].x : 1e9;
-          if (xa !== xb) return xa - xb;
-          const ya = yearOf(byId[a.row[0]]) || 0, yb = yearOf(byId[b.row[0]]) || 0;
-          return ya - yb;
+      // Place a person, their siblings, and all ancestors. `edge` is "left",
+      // "right", or "" and controls where that person sits among their siblings.
+      function placeAncestry(id, edge) {
+        if (!id || !byId[id] || placed.has(id)) return;
+        const p = byId[id];
+        const father = p.father && byId[p.father] ? p.father : "";
+        const mother = p.mother && byId[p.mother] ? p.mother : "";
+        if (father) placeAncestry(father, "right");
+        if (mother) placeAncestry(mother, "left");
+        if (father && mother) appendAt(gen[father], coupleOrder(father, mother));
+        else if (father || mother) appendAt(gen[father || mother], [father || mother]);
+
+        let group;
+        if (!father && !mother) {
+          group = [id];
+        } else {
+          group = sortByYear(childrenOfCouple(father, mother)).filter((s) => s === id || !placed.has(s));
+        }
+        const others = group.filter((s) => s !== id);
+        if (edge === "right") appendAt(gen[id], others.concat([id]));
+        else if (edge === "left") appendAt(gen[id], [id].concat(others));
+        else appendAt(gen[id], group);
+      }
+
+      function parentKeyOf(id) {
+        const p = byId[id];
+        return (p.father || "") + "|" + (p.mother || "");
+      }
+      function placeComponent(members) {
+        const ids = members.map((p) => p.id);
+        const inComp = new Set(ids);
+        const joiners = [];
+        const seen = new Set();
+        members.forEach((p) => {
+          const q = partnerOf(p.id);
+          if (!q || !inComp.has(q)) return;
+          const key = pairKey(p.id, q);
+          if (seen.has(key)) return;
+          seen.add(key);
+          const pa = parentKeyOf(p.id), pb = parentKeyOf(q);
+          const aHas = pa !== "|", bHas = pb !== "|";
+          if (aHas && bHas && pa !== pb) joiners.push([p.id, q, gen[p.id]]);
         });
-        let minX = PAD;
-        units.forEach((u) => {
-          const par = parentOfUnit(u);
-          const w = rowW(u);
-          let x;
-          if (par && pos[par]) {
-            const p = byId[par];
-            const mates = [par, p.partner].filter((id) => id && pos[id]);
-            const mid = mates.reduce((s, id) => s + pos[id].x + BW / 2, 0) / mates.length;
-            x = mid - w / 2;
+        if (joiners.length) {
+          joiners.sort((a, b) => b[2] - a[2] || a[0].localeCompare(b[0]));
+          const a = joiners[0][0], b = joiners[0][1];
+          // coupleOrder puts the father (or earlier-born partner) on the left
+          // so the two ancestral blocks sit on either side of the marriage.
+          const pair = coupleOrder(a, b);
+          placeAncestry(pair[0], "right");
+          placeAncestry(pair[1], "left");
+        } else {
+          const deepest = members.slice().sort((a, b) => gen[b.id] - gen[a.id] || (yearOf(a) || 0) - (yearOf(b) || 0))[0];
+          const father = deepest.father && byId[deepest.father] ? deepest.father : "";
+          const mother = deepest.mother && byId[deepest.mother] ? deepest.mother : "";
+          if (father) placeAncestry(father, "right");
+          if (mother) placeAncestry(mother, "left");
+          if (father || mother) {
+            sortByYear(childrenOfCouple(father, mother)).forEach((c) => appendAt(gen[c], [c]));
+          } else if (partnerOf(deepest.id)) {
+            const pair = coupleOrder(deepest.id, partnerOf(deepest.id));
+            appendAt(gen[deepest.id], pair);
           } else {
-            x = minX;
+            placeAncestry(deepest.id, "");
           }
-          if (x < minX) x = minX;
-          u.row.forEach((id, i) => {
-            pos[id] = { x: x + i * (BW + PG), y };
-            placed.add(id);
-          });
-          minX = x + w + UG;
+        }
+        sortByYear(ids).forEach((id) => {
+          if (placed.has(id)) return;
+          const q = partnerOf(id);
+          if (q && !placed.has(q) && byId[q]) appendAt(gen[id], coupleOrder(id, q));
+          else appendAt(gen[id], [id]);
         });
-      });
+      }
 
-      // Place anyone missed
+      const cf = {};
+      const cfind = (x) => (cf[x] === x ? x : (cf[x] = cfind(cf[x])));
+      const cunite = (a, b) => { a = cfind(a); b = cfind(b); if (a !== b) cf[a] = b; };
+      list.forEach((p) => { cf[p.id] = p.id; });
       list.forEach((p) => {
-        if (pos[p.id]) return;
-        const g = gen[p.id] || 0;
-        const xs = Object.keys(pos).filter((id) => Math.abs((pos[id].y - (PAD + g * GH))) < 1).map((id) => pos[id].x);
-        const x = (xs.length ? largest(xs) + BW + UG : PAD);
-        pos[p.id] = { x, y: PAD + g * GH };
+        if (p.partner && byId[p.partner]) cunite(p.id, p.partner);
+        if (p.father && byId[p.father]) cunite(p.id, p.father);
+        if (p.mother && byId[p.mother]) cunite(p.id, p.mother);
+      });
+      const comps = {};
+      list.forEach((p) => { (comps[cfind(p.id)] ||= []).push(p); });
+      Object.values(comps).sort((a, b) => b.length - a.length).forEach(placeComponent);
+
+      list.forEach((p) => {
+        if (placed.has(p.id)) return;
+        const q = partnerOf(p.id);
+        if (q && placed.has(q)) {
+          const row = (order[gen[p.id]] ||= []);
+          const i = row.indexOf(q);
+          if (i >= 0) {
+            const pair = coupleOrder(p.id, q);
+            const insert = pair[0] === q ? i + 1 : i;
+            row.splice(insert, 0, p.id);
+            placed.add(p.id);
+            return;
+          }
+        }
+        appendAt(gen[p.id], q && !placed.has(q) ? coupleOrder(p.id, q) : [p.id]);
       });
 
-      // Shift so the leftmost box sits on the padding.
+      const gens = Object.keys(order).map(Number).sort((a, b) => a - b);
+
+      function rowUnits(ids) {
+        const units = [];
+        const used = new Set();
+        (ids || []).forEach((id) => {
+          if (used.has(id)) return;
+          const q = partnerOf(id);
+          if (q && ids.indexOf(q) >= 0 && !used.has(q)) {
+            const pair = ids.indexOf(id) < ids.indexOf(q) ? [id, q] : [q, id];
+            units.push({ ids: pair, people: pair.length });
+            used.add(pair[0]); used.add(pair[1]);
+          } else {
+            units.push({ ids: [id], people: 1 });
+            used.add(id);
+          }
+        });
+        units.forEach((u) => {
+          u.width = u.ids.length * BW + (u.ids.length - 1) * PARTNER_GAP;
+        });
+        return units;
+      }
+      function unitGap(a, b) {
+        return gapBetween(a.ids[a.ids.length - 1], b.ids[0]);
+      }
+
+      const unitsAt = {};
+      gens.forEach((g) => { unitsAt[g] = rowUnits(order[g]); });
+
+      function applyX(units, xs) {
+        units.forEach((u, i) => {
+          let x = xs[i];
+          u.ids.forEach((id, j) => {
+            pos[id] = { x: x + j * (BW + PARTNER_GAP), y: PAD + gen[id] * GH };
+          });
+        });
+      }
+      function pack(units, desired) {
+        const xs = [];
+        units.forEach((u, i) => {
+          const want = desired && desired[i] != null ? desired[i] : PAD;
+          if (i === 0) {
+            xs[0] = larger(PAD, want);
+            return;
+          }
+          const minX = xs[i - 1] + units[i - 1].width + unitGap(units[i - 1], u);
+          xs[i] = larger(minX, want);
+        });
+        return xs;
+      }
+
+      gens.forEach((g) => {
+        applyX(unitsAt[g], pack(unitsAt[g], null));
+      });
+
+      function midOf(ids) {
+        return ids.reduce((s, id) => s + pos[id].x + BW / 2, 0) / ids.length;
+      }
+      function familyParents() {
+        const map = new Map();
+        list.forEach((p) => {
+          const f = p.father || "", m = p.mother || "";
+          if (!f && !m) return;
+          if ((f && !pos[f]) || (m && !pos[m])) return;
+          const key = f + "|" + m;
+          if (!map.has(key)) map.set(key, { father: f, mother: m, parents: [f, m].filter(Boolean), children: [] });
+          map.get(key).children.push(p.id);
+        });
+        return Array.from(map.values());
+      }
+
+      // Bottom-up only: parents follow their own children. A top-down
+      // pass would slide unmarried siblings away from a child who has
+      // to sit beside a spouse, tearing the sibling group apart.
+      for (let pass = 0; pass < 8; pass++) {
+        gens.slice().reverse().forEach((g) => {
+          const units = unitsAt[g];
+          const desired = units.map((u) => {
+            const kids = [];
+            u.ids.forEach((id) => {
+              list.forEach((c) => {
+                if ((c.father === id || c.mother === id) && pos[c.id] && !kids.includes(c.id)) kids.push(c.id);
+              });
+            });
+            // Only children of this exact couple (or this single parent).
+            const exact = list.filter((c) => {
+              const f = c.father || "", m = c.mother || "";
+              if (u.ids.length === 2) {
+                const pair = u.ids.slice().sort();
+                const have = [f, m].filter(Boolean).sort();
+                return have.length === 2 && have[0] === pair[0] && have[1] === pair[1] && pos[c.id];
+              }
+              if (u.ids.length === 1) {
+                return ((f === u.ids[0] && !m) || (m === u.ids[0] && !f)) && pos[c.id];
+              }
+              return false;
+            }).map((c) => c.id);
+            if (!exact.length) return pos[u.ids[0]].x;
+            return midOf(exact) - u.width / 2;
+          });
+          applyX(units, pack(units, desired));
+        });
+      }
+
       const xs = Object.values(pos).map((p) => p.x);
       const shift = PAD - Math.min.apply(null, xs);
       if (shift) Object.values(pos).forEach((p) => { p.x += shift; });
@@ -638,53 +882,55 @@
       const cx = (id) => pos[id].x + BW / 2;
       const has = (id) => !!pos[id];
 
-      // Partner lines and marriage labels
       const drawnPairs = new Set();
       list.forEach((p) => {
         if (!p.partner || !has(p.id) || !has(p.partner)) return;
         const key = pairKey(p.id, p.partner);
         if (drawnPairs.has(key)) return;
         drawnPairs.add(key);
+        if (Math.abs(pos[p.id].y - pos[p.partner].y) > 1) return;
         const a = p.id, b = p.partner;
-        if (Math.abs(pos[a].y - pos[b].y) > 1) return;
         const l = smaller(cx(a), cx(b)), r = larger(cx(a), cx(b));
         const y = pos[a].y + BH / 2;
-        lines.push({ x1: l + BW / 2, y1: y, x2: r - BW / 2, y2: y });
+        lines.push({
+          x1: l + BW / 2, y1: y, x2: r - BW / 2, y2: y,
+          kind: "partner", family: key
+        });
         const my = marriageYear(p) || marriageYear(byId[b]);
         if (my) labels.push({ x: (l + r) / 2, y: pos[a].y + BH + 14, text: my });
       });
 
-      // Parent to children
-      const kidsOf = {};
-      list.forEach((p) => {
-        ["father", "mother"].forEach((k) => {
-          const par = p[k];
-          if (par && has(par) && has(p.id)) (kidsOf[par] ||= []).push(p.id);
-        });
-      });
-      const doneParents = new Set();
-      Object.keys(kidsOf).forEach((par) => {
-        const p = byId[par];
-        const mate = p.partner && has(p.partner) ? p.partner : null;
-        const key = mate ? pairKey(par, mate) : par;
-        if (doneParents.has(key)) return;
-        doneParents.add(key);
-        const parents = mate ? [par, mate] : [par];
-        const kids = [];
-        parents.forEach((id) => (kidsOf[id] || []).forEach((k) => { if (!kids.includes(k) && has(k)) kids.push(k); }));
-        if (!kids.length) return;
-        const mid = parents.reduce((s, id) => s + cx(id), 0) / parents.length;
-        const topY = pos[par].y + (mate ? BH / 2 : BH);
-        const barY = pos[par].y + BH + (GH - BH) / 2;
+      familyParents().forEach((fam) => {
+        const parents = fam.parents.filter(has);
+        const kids = fam.children.filter(has);
+        if (!parents.length || !kids.length) return;
+        families.push({ parents: parents.slice(), children: kids.slice() });
+        const mid = midOf(parents);
+        const topY = parents.length === 2 ? pos[parents[0]].y + BH / 2 : pos[parents[0]].y + BH;
+        const barY = (pos[parents[0]].y + BH + pos[kids[0]].y) / 2;
         const kxs = kids.map(cx);
-        lines.push({ x1: mid, y1: topY, x2: mid, y2: barY });
-        lines.push({ x1: smallest([mid].concat(kxs)), y1: barY, x2: largest([mid].concat(kxs)), y2: barY });
-        kids.forEach((k) => lines.push({ x1: cx(k), y1: barY, x2: cx(k), y2: pos[k].y }));
+        const famKey = (fam.father || "") + "|" + (fam.mother || "");
+        let barLeft = smallest([mid].concat(kxs));
+        let barRight = largest([mid].concat(kxs));
+        if (barRight - barLeft < 12) {
+          const c = (barLeft + barRight) / 2;
+          barLeft = c - 6;
+          barRight = c + 6;
+        }
+        lines.push({ x1: mid, y1: topY, x2: mid, y2: barY, kind: "drop", family: famKey });
+        lines.push({
+          x1: barLeft, y1: barY,
+          x2: barRight, y2: barY,
+          kind: "bar", family: famKey
+        });
+        kids.forEach((k) => {
+          lines.push({ x1: cx(k), y1: barY, x2: cx(k), y2: pos[k].y, kind: "child", family: famKey, child: k });
+        });
       });
 
       const width = largest(Object.values(pos).map((p) => p.x + BW)) + PAD;
       const height = largest(Object.values(pos).map((p) => p.y + BH)) + PAD;
-      return { pos, lines, labels, width, height };
+      return { pos, lines, labels, width, height, families, gen, order };
     }
 
     function applyCam() {
@@ -695,7 +941,7 @@
       if (raf) return;
       raf = requestAnimationFrame(() => { raf = 0; applyCam(); });
     }
-    function clampZ(z) { return smaller(2.8, larger(0.28, z)); }
+    function clampZ(z) { return smaller(2.8, larger(0.08, z)); }
     function setTransition(on) {
       world.style.transition = (on && !reduced && !dragging) ? "transform 0.35s ease-out" : "none";
     }
@@ -733,10 +979,14 @@
       if (!layoutData) return;
       const { pos, lines, labels } = layoutData;
       lines.forEach((l) => {
-        world.appendChild(el("line", {
+        const lineAttrs = {
           x1: l.x1, y1: l.y1, x2: l.x2, y2: l.y2,
           stroke: "#8a8a8a", "stroke-width": 1.5
-        }));
+        };
+        if (l.kind) lineAttrs["data-kind"] = l.kind;
+        if (l.family) lineAttrs["data-family"] = l.family;
+        if (l.child) lineAttrs["data-child"] = l.child;
+        world.appendChild(el("line", lineAttrs));
       });
       labels.forEach((lb) => {
         const tw = lb.text.length * 6.2 + 12;
@@ -1090,6 +1340,7 @@
         people = data.people || [];
         byId = Object.fromEntries(people.map((p) => [p.id, p]));
         layoutData = layoutTree(people);
+        window.__wearefamily = { layoutData: layoutData, people: people, byId: byId, BW: BW, BH: BH, fitAll: fitAll, cam: cam };
         renderTree();
         renderRecords(data.records || []);
         measure();

@@ -17,3 +17,10 @@ python3 generate.py /path/to/spreadsheet.xlsx
 ```
 
 That writes `data.json` here. Use `-o` to choose a different output path. The script refuses to write the file if a living person's name is still present in the output.
+
+The tree is laid out as family units: each couple is joined by a short line, and a connector drops from that join to their own children only. Check this with Chrome and Playwright:
+
+```
+node test-layout.mjs
+```
+
