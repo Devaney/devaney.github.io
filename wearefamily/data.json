@@ -1,0 +1,349 @@
+{
+  "generated": "2026-11-15",
+  "people": [
+    {
+      "id": "P100",
+      "name": "William John Donaghy",
+      "fullName": "William John Donaghy",
+      "maiden": "",
+      "years": "c. 1850–1903",
+      "rel": "Great-great-grandfather (mum's side; Robert's father)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "C. 1850 (aged 53 at death on 19 Mar 1903)",
+      "birthPlace": "Agnew's Lane, Larne, at marriage (1871) and at Robert’s birth (1879); died Main Street, Larne",
+      "marriage": "High confidence: married Mary Ann McConell, 29 Oct 1871, Larne (https://www.irishgenealogy.ie/view/?record_id=cima-2760065).",
+      "death": "19 Mar 1903",
+      "note": "HIGH CONFIDENCE. Married Mary Ann McConell on 29 Oct 1871 in Larne (index lists William Donaghy and Mary Mcconell; https://www.irishgenealogy.ie/view/?record_id=cima-2760065). He lived on Agnew’s Lane, Larne; father Michael Donaghy, a carter. Their son Robert Donaghy was born on 19 Oct 1879 on Agnew’s Lane, father then recorded as a labourer, mother Mary Ann formerly McConell (https://www.irishgenealogy.ie/view/?record_id=cibi-8839727). Died 19 Mar 1903 on Main Street, Larne, aged 53; informant his wife Mary Ann (https://www.irishgenealogy.ie/view/?record_id=cide-4630955). Born about 1850. Also named as father on the probable 30 Sep 1906 Carnlough marriage of Robert Donaghy and Ellen Magill (occupation there possibly steward, uncertain). The identification of that 1906 Robert with Phyllis’s father is not yet family-confirmed.",
+      "sources": [
+        {
+          "label": "Marriage, 29 Oct 1871, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+        },
+        {
+          "label": "Son Robert’s birth, 19 Oct 1879, Agnew’s Lane, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+        },
+        {
+          "label": "Death, 19 Mar 1903, Main Street, Larne",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cide-4630955"
+        },
+        {
+          "label": "Named on son’s 1906 marriage",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": []
+    },
+    {
+      "id": "P087",
+      "name": "William Cooke",
+      "fullName": "William Cooke",
+      "maiden": "",
+      "years": "1888–1947",
+      "rel": "Great-grandfather (mum's side)",
+      "side": "c",
+      "conf": "probable",
+      "birth": "1888 (probable civil birth, Roscommon district); ages in 1915/1926/1947 also fit 1888–89",
+      "birthPlace": "Birth registered Roscommon district (probable, 1888); later of Castlerea (1915 marriage; died Church Road, 1947)",
+      "marriage": "Confirmed: married Mary Bridget Connor, 17 Mar 1915, RC Chapel of Ballinacree, Oldcastle, Co. Meath (https://www.irishgenealogy.ie/view/?record_id=cima-1785815).",
+      "death": "26 Mar 1947",
+      "note": "Family-confirmed from the 1926 Irish census (14 Nov 2026): aged 37 in 1926. CONFIRMED marriage: William Cooke married Mary Bridget Connor on 17 Mar 1915 at the RC Chapel of Ballinacree, Oldcastle district, Co. Meath (https://www.irishgenealogy.ie/view/?record_id=cima-1785815). He was 26, a bachelor and postman, living in Castlerea; father Edward Cooke, labourer. Witnesses Philip Faughnan and Julia Ward. CONFIRMED death: 26 Mar 1947 at Church Road, Castlerea, aged 58, married, ex-postman; informant son Eddie Cooke, present at death (https://www.irishgenealogy.ie/view/?record_id=cide-2744819). Born about 1888–89. PROBABLE civil birth: William Cooke, 1888, Roscommon district, father Edward Cooke (labourer), mother Ellen Kelly (https://www.irishgenealogy.ie/view/?record_id=cibi-11250530). This supports the probable 27 Feb 1886 marriage of Edward Cooke and Ellen Kelly at Bissara, Athleague district, Co. Roscommon.",
+      "sources": [
+        {
+          "label": "Marriage, 17 Mar 1915, Ballinacree, Oldcastle",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+        },
+        {
+          "label": "Death, 26 Mar 1947, Church Road, Castlerea",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cide-2744819"
+        },
+        {
+          "label": "Probable birth, 1888, Roscommon district",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [],
+      "children": [
+        "P058"
+      ]
+    },
+    {
+      "id": "P058",
+      "name": "John James Cooke",
+      "fullName": "John James Cooke",
+      "maiden": "",
+      "years": "1919–1976",
+      "rel": "Grandfather (mum's side)",
+      "side": "c",
+      "conf": "confirmed",
+      "birth": "14 Jan 1919",
+      "birthPlace": "Castlerea, Co. Roscommon (birth registered)",
+      "marriage": "Married 14 Oct 1943 (14 Nov 2026; a relative typed 2043, meaning 1943). Place not known.",
+      "death": "28 Oct 1976",
+      "note": "Family-confirmed; a relative typed his date of birth as 14 January 2018 or 2019, clearly meaning 1918 or 1919. INDEX MATCH, FITS FAMILY INFO: FreeBMD death, Dec quarter 1976, Kensington, vol 13 p1814, gives date of birth 14 Jan 1919. Confirmed again by the irishgenealogy.ie civil birth: John Cooke, 14 Jan 1919, registered in Castlerea, Co. Roscommon, mother's maiden surname O Connor (direct record: https://www.irishgenealogy.ie/view/?record_id=cibi-1655605). Age 7 on the 1926 Irish census (14 Nov 2026). Parents: William Cooke and Mary Cooke (née O'Connor), both 37 in 1926 (born around 1889). Siblings: Edward Peter (Eddie), William Joseph (Billy), George, Esther Margaret (Pearly), and two younger sisters born after 1926 (names not yet known). Died 28 October 1976. irishgenealogy.ie civil marriages 1940–1950 for Cooke and Donaghy (all spellings) were nil, so the 14 Oct 1943 marriage may have been in Northern Ireland (place still unknown). His 1976 probate record exists only on scanned pages, which have not been opened. Family-confirmed: John and Phyllis married on 14 Oct 1943 (a relative typed 2043, clearly meaning 1943, the same sort of typo as John's birth year). Place not known. The earlier irishgenealogy.ie 1940–50 nil result still stands; the place may have been Northern Ireland (GRONI, paid — quote the cost before searching).",
+      "sources": [
+        {
+          "label": "irishgenealogy.ie civil birth, 14 Jan 1919, Castlerea, mother O Connor",
+          "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1655605"
+        },
+        {
+          "label": "FreeBMD death, Kensington Dec 1976, 13/1814",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "GOV.UK probate search (1976, scanned pages not opened; no probate number recorded)",
+          "url": "https://probatesearch.service.gov.uk/"
+        }
+      ],
+      "father": "P087",
+      "mother": null,
+      "partner": "P059",
+      "siblings": [],
+      "children": []
+    },
+    {
+      "id": "P059",
+      "name": "Phyllis Cooke",
+      "fullName": "Phyllis (Phillis / Philomena) Cooke",
+      "maiden": "Donaghy",
+      "years": "1923–2014",
+      "rel": "Grandmother (mum's side)",
+      "side": "c",
+      "conf": "confirmed",
+      "birth": "7 Jul 1923",
+      "birthPlace": "",
+      "marriage": "Married 14 Oct 1943 (14 Nov 2026; a relative typed 2043, meaning 1943). Place not known.",
+      "death": "15 Aug 2014",
+      "note": "Family-confirmed. Spelt Phillis on her birth certificate; she insisted her name was Phillimena. The GRO death index lists her as Phillis / Philomena Phyllis Cooke, born 1923. Born 7 July 1923, died 15 August 2014. Married name Cooke. Parents: Ellen and Robert Donaghy. INDEX MATCH, FITS FAMILY INFO (14 Nov 2026): death registered Q4 2014 in Hounslow, GRO entry 511294357 (registration in the following quarter is normal). Probate: Phillis Cooke died 15 Aug 2014, grant 3 Oct 2014, London registry, probate number 4419073 — this matches the family date exactly. irishgenealogy.ie showed no Phyllis/Phillis/Philomena Donaghy birth in 1923, which fits a Northern Ireland birth: after 1922 those records are held by GRONI, not irishgenealogy.ie. irishgenealogy.ie civil marriages 1940–1950 for Cooke and Donaghy (all spellings) were nil, so the 14 Oct 1943 marriage may have been in Northern Ireland (place still unknown). Parents Robert and Ellen Donaghy are a probable match for the 30 Sep 1906 Carnlough marriage of Robert Donaghy and Ellen Magill (https://www.irishgenealogy.ie/view/?record_id=cima-1881497); not yet confirmed by family. Five Larne births with those parents are treated as her probable siblings. Her own 1923 birth was not found on irishgenealogy.ie, which fits a Northern Ireland birth held by GRONI. Family-confirmed: John and Phyllis married on 14 Oct 1943 (a relative typed 2043, clearly meaning 1943, the same sort of typo as John's birth year). Place not known. The earlier irishgenealogy.ie 1940–50 nil result still stands; the place may have been Northern Ireland (GRONI, paid — quote the cost before searching).",
+      "sources": [
+        {
+          "label": "GRO death index 511294357, Hounslow",
+          "url": "https://www.gro.gov.uk/gro/content/certificates/"
+        },
+        {
+          "label": "GOV.UK probate 4419073 (grant 3 Oct 2014, London)",
+          "url": "https://probatesearch.service.gov.uk/"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": "P058",
+      "siblings": [],
+      "children": []
+    },
+    {
+      "id": "P020",
+      "name": "Mick Devaney",
+      "fullName": "Michael John Devaney",
+      "maiden": "",
+      "years": "1954–2020",
+      "rel": "Uncle (dad's brother)",
+      "side": "d",
+      "conf": "probable",
+      "birth": "1954",
+      "birthPlace": "Hammersmith registration district, London (Oct–Dec 1954) – lead",
+      "marriage": "",
+      "death": "January 2020 (registered Q1)",
+      "note": "Assumed full sibling of Tony. LEAD: FreeBMD birth Dec qtr 1954, Hammersmith 5c/952, Michael J Devaney, mother spelt NEVAN (likely a variant of Nevin). He died in January 2020 (14 Nov 2026). INDEX MATCH, FITS FAMILY INFO (14 Nov 2026): Michael John Devaney, born 1954; death registered Q1 2020 in Kensington & Chelsea, GRO death index entry 520057427 (239-1A). Middle name is John. Exact day still needed. GOV.UK probate search for 2020: nil; a grant may not have been needed.",
+      "sources": [
+        {
+          "label": "FreeBMD birth, Hammersmith Dec 1954, 5c/952",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "GRO death index 520057427, Kensington & Chelsea (239-1A)",
+          "url": "https://www.gro.gov.uk/gro/content/certificates/"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [
+        "P002"
+      ],
+      "children": []
+    },
+    {
+      "id": "P002",
+      "name": "Tony Devaney",
+      "fullName": "William Anthony J Devaney",
+      "maiden": "",
+      "years": "1957–2011",
+      "rel": "Dad",
+      "side": "d",
+      "conf": "probable",
+      "birth": "1957",
+      "birthPlace": "Hammersmith registration district, London (Jul–Sep 1957) – lead",
+      "marriage": "Married Apr–Jun 1981, Hounslow district (FreeBMD index).",
+      "death": "Jul–Sep 2011 (Q3)",
+      "note": "Known as Tony. HubSpot/family notes previously used the spelling Antony; the GRO death index gives William Anthony J Devaney, born 1957. Birth date and hospital still needed. LEAD: FreeBMD birth Sep qtr 1957, Hammersmith 5c/869, William A Devaney, mother's maiden name Nevin. INDEX MATCH, FITS FAMILY INFO (14 Nov 2026): death registered Q3 2011 in Hounslow, GRO death index entry 505164999 (237-1B). Exact day still needed. GOV.UK probate search for death years 2010–12: nil; a grant may not have been needed (for example a small or jointly owned estate).",
+      "sources": [
+        {
+          "label": "FreeBMD birth, Hammersmith Sep 1957, 5c/869",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        },
+        {
+          "label": "GRO death index 505164999, Hounslow (237-1B)",
+          "url": "https://www.gro.gov.uk/gro/content/certificates/"
+        },
+        {
+          "label": "FreeBMD marriage, Hounslow Apr–Jun 1981",
+          "url": "https://www.freebmd.org.uk/cgi/search.pl"
+        }
+      ],
+      "father": null,
+      "mother": null,
+      "partner": null,
+      "siblings": [
+        "P020"
+      ],
+      "children": []
+    }
+  ],
+  "records": [
+    {
+      "type": "Marriage",
+      "who": "William John Donaghy",
+      "detail": "Marriage, 29 Oct 1871, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-2760065"
+    },
+    {
+      "type": "Birth",
+      "who": "William John Donaghy",
+      "detail": "Son Robert’s birth, 19 Oct 1879, Agnew’s Lane, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-8839727"
+    },
+    {
+      "type": "Death",
+      "who": "William John Donaghy",
+      "detail": "Death, 19 Mar 1903, Main Street, Larne",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cide-4630955"
+    },
+    {
+      "type": "Marriage",
+      "who": "William John Donaghy",
+      "detail": "Named on son’s 1906 marriage",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1881497"
+    },
+    {
+      "type": "Marriage",
+      "who": "William Cooke",
+      "detail": "Marriage, 17 Mar 1915, Ballinacree, Oldcastle",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cima-1785815"
+    },
+    {
+      "type": "Death",
+      "who": "William Cooke",
+      "detail": "Death, 26 Mar 1947, Church Road, Castlerea",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cide-2744819"
+    },
+    {
+      "type": "Birth",
+      "who": "William Cooke",
+      "detail": "Probable birth, 1888, Roscommon district",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-11250530"
+    },
+    {
+      "type": "Birth",
+      "who": "John James Cooke",
+      "detail": "irishgenealogy.ie civil birth, 14 Jan 1919, Castlerea, mother O Connor",
+      "reference": "",
+      "confidence": "confirmed",
+      "url": "https://www.irishgenealogy.ie/view/?record_id=cibi-1655605"
+    },
+    {
+      "type": "Death",
+      "who": "John James Cooke",
+      "detail": "FreeBMD death, Kensington Dec 1976, 13/1814",
+      "reference": "13/1814",
+      "confidence": "confirmed",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Probate",
+      "who": "John James Cooke",
+      "detail": "GOV.UK probate search (1976, scanned pages not opened; no probate number recorded)",
+      "reference": "",
+      "confidence": "confirmed",
+      "url": "https://probatesearch.service.gov.uk/"
+    },
+    {
+      "type": "Death",
+      "who": "Phyllis (Phillis / Philomena) Cooke",
+      "detail": "GRO death index 511294357, Hounslow",
+      "reference": "511294357",
+      "confidence": "confirmed",
+      "url": "https://www.gro.gov.uk/gro/content/certificates/"
+    },
+    {
+      "type": "Probate",
+      "who": "Phyllis (Phillis / Philomena) Cooke",
+      "detail": "GOV.UK probate 4419073 (grant 3 Oct 2014, London)",
+      "reference": "4419073",
+      "confidence": "confirmed",
+      "url": "https://probatesearch.service.gov.uk/"
+    },
+    {
+      "type": "Birth",
+      "who": "Michael John Devaney",
+      "detail": "FreeBMD birth, Hammersmith Dec 1954, 5c/952",
+      "reference": "5c/952",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Death",
+      "who": "Michael John Devaney",
+      "detail": "GRO death index 520057427, Kensington & Chelsea (239-1A)",
+      "reference": "520057427",
+      "confidence": "probable",
+      "url": "https://www.gro.gov.uk/gro/content/certificates/"
+    },
+    {
+      "type": "Birth",
+      "who": "William Anthony J Devaney",
+      "detail": "FreeBMD birth, Hammersmith Sep 1957, 5c/869",
+      "reference": "5c/869",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    },
+    {
+      "type": "Death",
+      "who": "William Anthony J Devaney",
+      "detail": "GRO death index 505164999, Hounslow (237-1B)",
+      "reference": "505164999",
+      "confidence": "probable",
+      "url": "https://www.gro.gov.uk/gro/content/certificates/"
+    },
+    {
+      "type": "Marriage",
+      "who": "William Anthony J Devaney",
+      "detail": "FreeBMD marriage, Hounslow Apr–Jun 1981",
+      "reference": "",
+      "confidence": "probable",
+      "url": "https://www.freebmd.org.uk/cgi/search.pl"
+    }
+  ]
+}

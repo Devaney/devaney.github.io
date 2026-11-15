@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Family tree</title>
+  <meta name="description" content="A family tree of relatives who have died.">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #028a20;
+      --ink: #222;
+      --muted: #444;
+      --line: #d9d9d9;
+      --paper: #ffffff;
+      --wash: #f7f7f7;
+      --side-d: #2b6cb0;
+      --side-c: #c9a227;
+      --side-b: #0e8a8a;
+      --side-i: #6b7280;
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Open Sans", sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-text-size-adjust: 100%;
+    }
+    a { color: var(--green); }
+    a:hover, a:focus-visible { text-decoration-thickness: 2px; }
+
+    .skip {
+      position: absolute;
+      left: -999px;
+      top: 0;
+    }
+    .skip:focus {
+      left: 12px;
+      top: 12px;
+      z-index: 200;
+      background: var(--paper);
+      padding: 8px 12px;
+    }
+
+    .top {
+      padding: calc(16px + var(--safe-t)) 16px 12px;
+      padding-left: calc(16px + var(--safe-l));
+      padding-right: calc(16px + var(--safe-r));
+      background: #111;
+      color: #fff;
+    }
+    .top a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: Raleway, sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .top a:hover, .top a:focus-visible { color: #9fe0b0; }
+
+    .intro {
+      padding: 28px 16px 8px;
+      padding-left: calc(16px + var(--safe-l));
+      padding-right: calc(16px + var(--safe-r));
+      width: 44rem;
+      width: min(44rem, 100%);
+    }
+    h1 {
+      font-family: Raleway, sans-serif;
+      font-size: 1.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+      color: #333;
+      line-height: 1.2;
+    }
+    .rule {
+      width: 55px;
+      height: 5px;
+      background: var(--green);
+      margin: 0 0 16px;
+    }
+    .intro p { margin: 0 0 12px; color: var(--muted); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      list-style: none;
+      padding: 8px 0 0;
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .legend li { display: flex; align-items: center; gap: 8px; }
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex: 0 0 12px;
+    }
+    .swatch.d { background: var(--side-d); }
+    .swatch.c { background: var(--side-c); }
+    .swatch.b { background: var(--side-b); }
+    .swatch.i { background: var(--side-i); }
+
+    .tree-section {
+      padding: 8px 0 24px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 0 16px 10px;
+      padding-left: calc(16px + var(--safe-l));
+      padding-right: calc(16px + var(--safe-r));
+    }
+    .toolbar .hint {
+      font-size: 14px;
+      color: var(--muted);
+      margin-right: auto;
+    }
+    .tool-btn {
+      font-family: Raleway, sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--green);
+      color: #fff;
+      cursor: pointer;
+    }
+    .tool-btn:active { transform: translateY(1px); }
+    .tool-btn:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
+
+    .viewport {
+      position: relative;
+      width: 100%;
+      height: min(78vh, 720px);
+      min-height: 420px;
+      background: var(--wash);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+      cursor: grab;
+      overscroll-behavior: contain;
+    }
+    .viewport:active { cursor: grabbing; }
+    .viewport svg { display: block; width: 100%; height: 100%; }
+    .err {
+      padding: 24px 16px;
+      color: #8a1c1c;
+    }
+
+    .records {
+      padding: 32px 16px calc(40px + var(--safe-b));
+      padding-left: calc(16px + var(--safe-l));
+      padding-right: calc(16px + var(--safe-r));
+      width: 70rem;
+      width: min(70rem, 100%);
+      margin: 0 auto;
+    }
+    .records h2 {
+      font-family: Raleway, sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+      color: #333;
+    }
+    .records .lead { color: var(--muted); margin: 0 0 20px; }
+
+    .rec-list { display: grid; gap: 12px; }
+    .rec {
+      background: var(--wash);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .rec .k {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin: 0 0 4px;
+    }
+    .rec .who { font-weight: 700; margin: 0 0 4px; }
+    .rec .detail { margin: 0 0 6px; }
+    .rec .meta { font-size: 14px; color: var(--muted); margin: 0; }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e8e8e8;
+      color: #333;
+    }
+    .badge.confirmed { background: #d9f3e1; color: #0a5a18; }
+    .badge.probable { background: #f5edd3; color: #6a5208; }
+    .badge.lead { background: #ececec; color: #444; }
+
+    @media (min-width: 900px) {
+      .rec-list { display: none; }
+      .rec-table { display: table; }
+    }
+    .rec-table {
+      display: none;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    .rec-table th, .rec-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .rec-table th {
+      font-family: Raleway, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Full-screen person card */
+    .card {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      visibility: hidden;
+      transition: transform 0.28s ease, visibility 0.28s;
+    }
+    .card.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+    }
+    .card-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: calc(8px + var(--safe-t)) 8px 8px;
+      padding-left: calc(8px + var(--safe-l));
+      padding-right: calc(8px + var(--safe-r));
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+      flex: 0 0 auto;
+    }
+    .icon-btn {
+      min-width: 44px;
+      min-height: 44px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: Raleway, sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 0 10px;
+    }
+    .icon-btn:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+    .icon-btn[hidden] { display: none; }
+    .icon-btn.close { font-size: 22px; letter-spacing: 0; }
+
+    .card-body {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 20px 18px calc(28px + var(--safe-b));
+      padding-left: calc(18px + var(--safe-l));
+      padding-right: calc(18px + var(--safe-r));
+      -webkit-overflow-scrolling: touch;
+    }
+    .card-name {
+      font-family: Raleway, sans-serif;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      margin: 0 0 4px;
+    }
+    .card-sub { color: var(--muted); margin: 0 0 4px; }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0 20px;
+    }
+    .field { margin: 0 0 16px; }
+    .field h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 4px;
+    }
+    .field p { margin: 0; }
+    .sources { display: flex; flex-direction: column; gap: 8px; }
+    .sources a { word-break: break-word; }
+
+    .rel-block { margin: 8px 0 16px; }
+    .rel-block h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--wash);
+      color: var(--ink);
+      font: 600 15px/1.2 "Open Sans", sans-serif;
+      cursor: pointer;
+      text-align: left;
+    }
+    .chip:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+    .chip .yrs { color: var(--muted); font-weight: 400; margin-left: 6px; }
+
+    .side-bar { fill: var(--side-i); }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#tree">Skip to the tree</a>
+  <header class="top">
+    <a href="/">Back to the site</a>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Family tree</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p>This page shows relatives who have died. Some branches have gaps where a death has not yet been recorded. The eldest generation is at the top.</p>
+      <p>Pinch or use the buttons to zoom, drag to move around, and tap a person for everything on record about them.</p>
+      <ul class="legend">
+        <li><span class="swatch d" aria-hidden="true"></span> Devaney</li>
+        <li><span class="swatch c" aria-hidden="true"></span> Cooke and Donaghy</li>
+        <li><span class="swatch b" aria-hidden="true"></span> Borrett</li>
+        <li><span class="swatch i" aria-hidden="true"></span> Married in</li>
+      </ul>
+    </section>
+
+    <section class="tree-section" id="tree">
+      <div class="toolbar">
+        <p class="hint">Drag to pan. Pinch or use + and − to zoom.</p>
+        <button type="button" class="tool-btn" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" class="tool-btn" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" class="tool-btn" id="zoom-reset">Reset</button>
+      </div>
+      <div class="viewport" id="viewport" role="application" aria-label="Family tree">
+        <svg id="tree-svg" xmlns="http://www.w3.org/2000/svg">
+          <g id="world"></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="records" id="records">
+      <h2>What the records show</h2>
+      <p class="lead">Source indexes and civil records for the people on this page. Open a link to see the original search or record.</p>
+      <div class="rec-list" id="rec-list"></div>
+      <table class="rec-table" id="rec-table">
+        <thead>
+          <tr>
+            <th scope="col">Record</th>
+            <th scope="col">Who</th>
+            <th scope="col">Detail</th>
+            <th scope="col">Reference</th>
+            <th scope="col">Confidence</th>
+            <th scope="col">Source</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div class="card" id="card" hidden>
+    <div class="card-bar">
+      <button type="button" class="icon-btn" id="card-back">Back</button>
+      <button type="button" class="icon-btn close" id="card-close" aria-label="Close">×</button>
+    </div>
+    <div class="card-body" id="card-body"></div>
+  </div>
+
+  <script>
+  (function () {
+    const BW = 176, BH = 94, PG = 16, UG = 36, GH = 200, PAD = 32;
+    const SIDE = { d: "var(--side-d)", c: "var(--side-c)", b: "var(--side-b)", i: "var(--side-i)" };
+    const CONF = { confirmed: "Confirmed", probable: "Probable", lead: "Lead" };
+    function larger(a, b) { return a > b ? a : b; }
+    function smaller(a, b) { return a < b ? a : b; }
+    function largest(arr) {
+      let n = arr[0];
+      for (let i = 1; i < arr.length; i++) if (arr[i] > n) n = arr[i];
+      return n;
+    }
+    function smallest(arr) {
+      let n = arr[0];
+      for (let i = 1; i < arr.length; i++) if (arr[i] < n) n = arr[i];
+      return n;
+    }
+
+    const viewport = document.getElementById("viewport");
+    const world = document.getElementById("world");
+    const card = document.getElementById("card");
+    const cardBody = document.getElementById("card-body");
+    const backBtn = document.getElementById("card-back");
+    const closeBtn = document.getElementById("card-close");
+
+    let people = [];
+    let byId = {};
+    let layoutData = null;
+    let selected = null;
+    const cam = { x: 0, y: 0, z: 1 };
+    const vp = { w: 320, h: 420 };
+    let fitted = false;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ptrs = new Map();
+    let dragging = false;
+    let skipClick = false;
+    let pinch = { d: 1, z: 1, sx: 0, sy: 0, px: 0, py: 0 };
+    let raf = 0;
+    let transTimer = 0;
+    let closingHistory = false;
+    let cardDepth = 0;
+
+    function yearOf(p) {
+      const m = String(p.years || p.birth || "").match(/(1[7-9]\d{2}|20\d{2})/);
+      return m ? +m[1] : null;
+    }
+    function clip(s, n) {
+      s = String(s || "");
+      return s.length > n ? s.slice(0, n - 1) + "…" : s;
+    }
+    function marriageYear(p) {
+      const t = p.marriage || "";
+      const m = t.match(/\b(?:married|m\.)\s+(?:\d{1,2}\s+\w+\s+)?(\d{4})\b/i);
+      if (m) return "m. " + m[1];
+      return null;
+    }
+    function confLabel(c) { return CONF[c] || c || ""; }
+
+    function assignGenerations(list) {
+      const parent = {};
+      const find = (x) => (parent[x] === x ? x : (parent[x] = find(parent[x])));
+      const union = (a, b) => { a = find(a); b = find(b); if (a !== b) parent[a] = b; };
+      list.forEach((p) => { parent[p.id] = p.id; });
+      list.forEach((p) => {
+        if (p.partner && byId[p.partner]) union(p.id, p.partner);
+        (p.siblings || []).forEach((s) => { if (byId[s]) union(p.id, s); });
+      });
+      const groups = {};
+      list.forEach((p) => {
+        const r = find(p.id);
+        (groups[r] ||= []).push(p.id);
+      });
+      const groupList = Object.values(groups).map((ids) => {
+        const years = ids.map((id) => yearOf(byId[id])).filter((y) => y != null);
+        const year = years.length ? years.reduce((a, b) => a + b, 0) / years.length : 0;
+        return { ids, year };
+      }).sort((a, b) => a.year - b.year);
+
+      const gen = {};
+      let cur = 0;
+      let prevYear = null;
+      groupList.forEach((g) => {
+        if (prevYear != null && g.year - prevYear >= 18) cur += 1;
+        g.ids.forEach((id) => { gen[id] = cur; });
+        prevYear = g.year || prevYear;
+      });
+
+      let changed = true, guard = 0;
+      while (changed && guard++ < 24) {
+        changed = false;
+        list.forEach((p) => {
+          ["father", "mother"].forEach((k) => {
+            const par = p[k];
+            if (par && gen[par] != null && gen[p.id] <= gen[par]) {
+              gen[p.id] = gen[par] + 1;
+              const r = find(p.id);
+              groups[r].forEach((id) => { if (gen[id] < gen[p.id]) gen[id] = gen[p.id]; });
+              changed = true;
+            }
+          });
+        });
+      }
+      return gen;
+    }
+
+    function pairKey(a, b) {
+      return a < b ? a + "|" + b : b + "|" + a;
+    }
+
+    function layoutTree(list) {
+      const gen = assignGenerations(list);
+      const pos = {};
+      const lines = [];
+      const labels = [];
+      const placed = new Set();
+
+      const unitsAt = {};
+      const seenPair = new Set();
+      list.forEach((p) => {
+        const g = gen[p.id];
+        (unitsAt[g] ||= []);
+        if (p.partner && byId[p.partner] && gen[p.partner] === g) {
+          const key = pairKey(p.id, p.partner);
+          if (seenPair.has(key)) return;
+          seenPair.add(key);
+          const ids = [p.id, p.partner].sort((a, b) => {
+            const ya = yearOf(byId[a]) || 0, yb = yearOf(byId[b]) || 0;
+            return ya - yb || a.localeCompare(b);
+          });
+          unitsAt[g].push({ row: ids, anchor: p.id });
+        } else if (!p.partner || !byId[p.partner] || gen[p.partner] !== g) {
+          unitsAt[g].push({ row: [p.id], anchor: p.id });
+        }
+      });
+
+      const gens = Object.keys(unitsAt).map(Number).sort((a, b) => a - b);
+      function rowW(u) { return u.row.length * BW + (u.row.length - 1) * PG; }
+      function parentOfUnit(u) {
+        for (const id of u.row) {
+          const p = byId[id];
+          if (p.father && byId[p.father]) return p.father;
+          if (p.mother && byId[p.mother]) return p.mother;
+        }
+        return null;
+      }
+
+      // Place top generation left to right, then each later generation
+      // under its parents, resolving overlaps as we go.
+      let xCursor = PAD;
+      (unitsAt[gens[0]] || []).sort((a, b) => {
+        const ya = yearOf(byId[a.row[0]]) || 0, yb = yearOf(byId[b.row[0]]) || 0;
+        return ya - yb;
+      }).forEach((u) => {
+        const y = PAD + (gens[0] || 0) * GH;
+        let x = xCursor;
+        u.row.forEach((id, i) => {
+          pos[id] = { x: x + i * (BW + PG), y };
+          placed.add(id);
+        });
+        xCursor += rowW(u) + UG * 2;
+      });
+
+      gens.slice(1).forEach((g) => {
+        const y = PAD + g * GH;
+        const units = (unitsAt[g] || []).slice().sort((a, b) => {
+          const pa = parentOfUnit(a), pb = parentOfUnit(b);
+          const xa = pa && pos[pa] ? pos[pa].x : 1e9;
+          const xb = pb && pos[pb] ? pos[pb].x : 1e9;
+          if (xa !== xb) return xa - xb;
+          const ya = yearOf(byId[a.row[0]]) || 0, yb = yearOf(byId[b.row[0]]) || 0;
+          return ya - yb;
+        });
+        let minX = PAD;
+        units.forEach((u) => {
+          const par = parentOfUnit(u);
+          const w = rowW(u);
+          let x;
+          if (par && pos[par]) {
+            const p = byId[par];
+            const mates = [par, p.partner].filter((id) => id && pos[id]);
+            const mid = mates.reduce((s, id) => s + pos[id].x + BW / 2, 0) / mates.length;
+            x = mid - w / 2;
+          } else {
+            x = minX;
+          }
+          if (x < minX) x = minX;
+          u.row.forEach((id, i) => {
+            pos[id] = { x: x + i * (BW + PG), y };
+            placed.add(id);
+          });
+          minX = x + w + UG;
+        });
+      });
+
+      // Place anyone missed
+      list.forEach((p) => {
+        if (pos[p.id]) return;
+        const g = gen[p.id] || 0;
+        const xs = Object.keys(pos).filter((id) => Math.abs((pos[id].y - (PAD + g * GH))) < 1).map((id) => pos[id].x);
+        const x = (xs.length ? largest(xs) + BW + UG : PAD);
+        pos[p.id] = { x, y: PAD + g * GH };
+      });
+
+      // Shift so the leftmost box sits on the padding.
+      const xs = Object.values(pos).map((p) => p.x);
+      const shift = PAD - Math.min.apply(null, xs);
+      if (shift) Object.values(pos).forEach((p) => { p.x += shift; });
+
+      const cx = (id) => pos[id].x + BW / 2;
+      const has = (id) => !!pos[id];
+
+      // Partner lines and marriage labels
+      const drawnPairs = new Set();
+      list.forEach((p) => {
+        if (!p.partner || !has(p.id) || !has(p.partner)) return;
+        const key = pairKey(p.id, p.partner);
+        if (drawnPairs.has(key)) return;
+        drawnPairs.add(key);
+        const a = p.id, b = p.partner;
+        if (Math.abs(pos[a].y - pos[b].y) > 1) return;
+        const l = smaller(cx(a), cx(b)), r = larger(cx(a), cx(b));
+        const y = pos[a].y + BH / 2;
+        lines.push({ x1: l + BW / 2, y1: y, x2: r - BW / 2, y2: y });
+        const my = marriageYear(p) || marriageYear(byId[b]);
+        if (my) labels.push({ x: (l + r) / 2, y: pos[a].y + BH + 14, text: my });
+      });
+
+      // Parent to children
+      const kidsOf = {};
+      list.forEach((p) => {
+        ["father", "mother"].forEach((k) => {
+          const par = p[k];
+          if (par && has(par) && has(p.id)) (kidsOf[par] ||= []).push(p.id);
+        });
+      });
+      const doneParents = new Set();
+      Object.keys(kidsOf).forEach((par) => {
+        const p = byId[par];
+        const mate = p.partner && has(p.partner) ? p.partner : null;
+        const key = mate ? pairKey(par, mate) : par;
+        if (doneParents.has(key)) return;
+        doneParents.add(key);
+        const parents = mate ? [par, mate] : [par];
+        const kids = [];
+        parents.forEach((id) => (kidsOf[id] || []).forEach((k) => { if (!kids.includes(k) && has(k)) kids.push(k); }));
+        if (!kids.length) return;
+        const mid = parents.reduce((s, id) => s + cx(id), 0) / parents.length;
+        const topY = pos[par].y + (mate ? BH / 2 : BH);
+        const barY = pos[par].y + BH + (GH - BH) / 2;
+        const kxs = kids.map(cx);
+        lines.push({ x1: mid, y1: topY, x2: mid, y2: barY });
+        lines.push({ x1: smallest([mid].concat(kxs)), y1: barY, x2: largest([mid].concat(kxs)), y2: barY });
+        kids.forEach((k) => lines.push({ x1: cx(k), y1: barY, x2: cx(k), y2: pos[k].y }));
+      });
+
+      const width = largest(Object.values(pos).map((p) => p.x + BW)) + PAD;
+      const height = largest(Object.values(pos).map((p) => p.y + BH)) + PAD;
+      return { pos, lines, labels, width, height };
+    }
+
+    function applyCam() {
+      world.style.transformOrigin = "0 0";
+      world.style.transform = "translate(" + cam.x + "px," + cam.y + "px) scale(" + cam.z + ")";
+    }
+    function scheduleApply() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; applyCam(); });
+    }
+    function clampZ(z) { return smaller(2.8, larger(0.28, z)); }
+    function setTransition(on) {
+      world.style.transition = (on && !reduced && !dragging) ? "transform 0.35s ease-out" : "none";
+    }
+    function zoomAt(sx, sy, next) {
+      const z0 = cam.z;
+      const z = clampZ(next);
+      cam.z = z;
+      cam.x = sx - ((sx - cam.x) / z0) * z;
+      cam.y = sy - ((sy - cam.y) / z0) * z;
+    }
+    function fitAll(animate) {
+      if (!layoutData) return;
+      const { w, h } = vp;
+      const z = clampZ(Math.min((w - 24) / layoutData.width, (h - 24) / layoutData.height) * 0.96);
+      cam.z = z;
+      cam.x = (w - layoutData.width * z) / 2;
+      cam.y = larger(12, (h - layoutData.height * z) / 2);
+      setTransition(animate);
+      applyCam();
+      if (animate) {
+        if (transTimer) window.clearTimeout(transTimer);
+        transTimer = window.setTimeout(() => setTransition(false), 400);
+      }
+    }
+
+    function el(name, attrs, text) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.keys(attrs || {}).forEach((k) => node.setAttribute(k, attrs[k]));
+      if (text != null) node.textContent = text;
+      return node;
+    }
+
+    function renderTree() {
+      world.innerHTML = "";
+      if (!layoutData) return;
+      const { pos, lines, labels } = layoutData;
+      lines.forEach((l) => {
+        world.appendChild(el("line", {
+          x1: l.x1, y1: l.y1, x2: l.x2, y2: l.y2,
+          stroke: "#8a8a8a", "stroke-width": 1.5
+        }));
+      });
+      labels.forEach((lb) => {
+        const tw = lb.text.length * 6.2 + 12;
+        const g = el("g", { transform: "translate(" + lb.x + "," + lb.y + ")" });
+        g.appendChild(el("rect", { x: -tw / 2, y: -8, width: tw, height: 16, rx: 4, fill: "#f7f7f7" }));
+        const t = el("text", {
+          "text-anchor": "middle", y: 4, "font-size": 11,
+          fill: "#444", "font-family": "Open Sans, sans-serif"
+        }, lb.text);
+        g.appendChild(t);
+        world.appendChild(g);
+      });
+      Object.keys(pos).forEach((id) => {
+        const p = byId[id], at = pos[id], on = id === selected;
+        const g = el("g", {
+          transform: "translate(" + at.x + "," + at.y + ")",
+          "data-person": id,
+          style: "cursor:pointer"
+        });
+        g.appendChild(el("rect", {
+          width: BW, height: BH, rx: 10,
+          fill: "#fff",
+          stroke: on ? "#028a20" : "#cfcfcf",
+          "stroke-width": on ? 2.5 : 1
+        }));
+        g.appendChild(el("rect", {
+          x: 0, y: 0, width: 6, height: BH, rx: 3,
+          fill: SIDE[p.side] || SIDE.i
+        }));
+        g.appendChild(el("text", {
+          x: 14, y: 24, "font-size": 14, "font-weight": 700,
+          fill: "#222", "font-family": "Raleway, sans-serif"
+        }, clip(p.name, 20)));
+        let y = 44;
+        if (p.maiden) {
+          g.appendChild(el("text", {
+            x: 14, y: y, "font-size": 12, fill: "#555",
+            "font-family": "Open Sans, sans-serif"
+          }, clip("née " + p.maiden, 22)));
+          y = 62;
+        }
+        g.appendChild(el("text", {
+          x: 14, y: y, "font-size": 12, fill: "#555",
+          "font-family": "Open Sans, sans-serif"
+        }, clip(p.years || p.rel || "", 22)));
+        g.appendChild(el("text", {
+          x: BW - 10, y: p.maiden ? 62 : 44, "font-size": 10,
+          "text-anchor": "end", fill: "#666",
+          "font-family": "Open Sans, sans-serif"
+        }, (CONF[p.conf] || "").slice(0, 4)));
+        world.appendChild(g);
+      });
+    }
+
+    function localPoint(e) {
+      const r = viewport.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
+    }
+    function hitPerson(clientX, clientY) {
+      if (!layoutData) return "";
+      const r = viewport.getBoundingClientRect();
+      const wx = (clientX - r.left - cam.x) / cam.z;
+      const wy = (clientY - r.top - cam.y) / cam.z;
+      const ids = Object.keys(layoutData.pos);
+      for (let i = 0; i < ids.length; i++) {
+        const at = layoutData.pos[ids[i]];
+        if (wx >= at.x && wx <= at.x + BW && wy >= at.y && wy <= at.y + BH) return ids[i];
+      }
+      return "";
+    }
+
+    viewport.addEventListener("pointerdown", (e) => {
+      try { viewport.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      ptrs.set(e.pointerId, localPoint(e));
+      skipClick = false;
+      setTransition(false);
+      dragging = true;
+      if (ptrs.size === 2) {
+        const pts = Array.from(ptrs.values());
+        pinch = {
+          d: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1,
+          z: cam.z, sx: (pts[0].x + pts[1].x) / 2, sy: (pts[0].y + pts[1].y) / 2,
+          px: cam.x, py: cam.y
+        };
+        skipClick = true;
+      }
+    });
+    viewport.addEventListener("pointermove", (e) => {
+      if (!ptrs.has(e.pointerId)) return;
+      const cur = localPoint(e);
+      const prev = ptrs.get(e.pointerId);
+      ptrs.set(e.pointerId, cur);
+      if (ptrs.size >= 2) {
+        const pts = Array.from(ptrs.values());
+        const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+        const midX = (pts[0].x + pts[1].x) / 2;
+        const midY = (pts[0].y + pts[1].y) / 2;
+        const z0 = pinch.z;
+        const z = clampZ(z0 * (dist / pinch.d));
+        cam.z = z;
+        cam.x = midX - ((pinch.sx - pinch.px) / z0) * z;
+        cam.y = midY - ((pinch.sy - pinch.py) / z0) * z;
+        skipClick = true;
+        scheduleApply();
+        return;
+      }
+      if (prev && ptrs.size === 1) {
+        const dx = cur.x - prev.x, dy = cur.y - prev.y;
+        if (Math.abs(dx) + Math.abs(dy) > 4) skipClick = true;
+        if (skipClick) {
+          cam.x += dx;
+          cam.y += dy;
+          scheduleApply();
+        }
+      }
+    });
+    function onUp(e) {
+      const isTap = !skipClick && ptrs.size <= 1;
+      const cx = e.clientX, cy = e.clientY;
+      ptrs.delete(e.pointerId);
+      if (ptrs.size === 0) dragging = false;
+      if (ptrs.size < 2) pinch.d = 1;
+      if (isTap && ptrs.size === 0) {
+        const id = hitPerson(cx, cy);
+        if (id) openPerson(id, { push: true });
+      }
+    }
+    viewport.addEventListener("pointerup", onUp);
+    viewport.addEventListener("pointercancel", onUp);
+    viewport.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const r = viewport.getBoundingClientRect();
+      setTransition(false);
+      zoomAt(e.clientX - r.left, e.clientY - r.top, cam.z * (e.deltaY > 0 ? 0.9 : 1.11));
+      scheduleApply();
+    }, { passive: false });
+
+    document.getElementById("zoom-in").addEventListener("click", () => {
+      setTransition(false);
+      zoomAt(vp.w / 2, vp.h / 2, cam.z * 1.18);
+      applyCam();
+    });
+    document.getElementById("zoom-out").addEventListener("click", () => {
+      setTransition(false);
+      zoomAt(vp.w / 2, vp.h / 2, cam.z / 1.18);
+      applyCam();
+    });
+    document.getElementById("zoom-reset").addEventListener("click", () => fitAll(!reduced));
+
+    function measure() {
+      const r = viewport.getBoundingClientRect();
+      if (r.width > 40 && r.height > 40) {
+        vp.w = r.width;
+        vp.h = r.height;
+        if (!fitted && layoutData) {
+          fitted = true;
+          fitAll(false);
+        }
+      }
+    }
+    new ResizeObserver(measure).observe(viewport);
+
+    function relList(ids) {
+      return (ids || []).filter((id) => byId[id]);
+    }
+    function chips(ids) {
+      return relList(ids).map((id) => {
+        const p = byId[id];
+        const yr = p.years ? '<span class="yrs">' + escapeHtml(p.years) + "</span>" : "";
+        return '<button type="button" class="chip" data-go="' + id + '">' +
+          escapeHtml(p.name) + yr + "</button>";
+      }).join("");
+    }
+    function field(title, text) {
+      if (!text) return "";
+      return '<div class="field"><h3>' + title + "</h3><p>" + escapeHtml(text) + "</p></div>";
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function renderCard(id) {
+      const p = byId[id];
+      if (!p) return;
+      const parents = relList([p.father, p.mother]);
+      const siblings = relList(p.siblings);
+      const children = relList(p.children);
+      const partner = relList(p.partner ? [p.partner] : []);
+      const maiden = p.maiden ? '<p class="card-sub">née ' + escapeHtml(p.maiden) + "</p>" : "";
+      const full = (p.fullName && p.fullName !== p.name)
+        ? '<p class="card-sub">' + escapeHtml(p.fullName) + "</p>" : "";
+      const sources = (p.sources || []).filter((s) => s.url).map((s) =>
+        '<a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+        escapeHtml(s.label || "Source") + "</a>"
+      ).join("");
+      const nav = [
+        ["Parents", parents],
+        ["Siblings", siblings],
+        ["Children", children],
+        ["Partner", partner]
+      ].filter((pair) => pair[1].length).map((pair) =>
+        '<div class="rel-block"><h3>' + pair[0] + '</h3><div class="chips">' +
+        chips(pair[1].map((x) => x.id)) + "</div></div>"
+      ).join("");
+
+      cardBody.innerHTML =
+        '<h2 class="card-name" id="card-title">' + escapeHtml(p.name) + "</h2>" +
+        maiden + full +
+        (p.years ? '<p class="card-sub">' + escapeHtml(p.years) + "</p>" : "") +
+        '<div class="card-meta">' +
+          (p.rel ? "<span>" + escapeHtml(p.rel) + "</span>" : "") +
+          '<span class="badge ' + escapeHtml(p.conf || "") + '">' + escapeHtml(confLabel(p.conf)) + "</span>" +
+        "</div>" +
+        field("Birth", p.birth) +
+        field("Place", p.birthPlace) +
+        field("Marriage", p.marriage) +
+        field("Death", p.death) +
+        field("Notes", p.note) +
+        (sources ? '<div class="field"><h3>Sources</h3><div class="sources">' + sources + "</div></div>" : "") +
+        nav;
+
+      cardBody.querySelectorAll("[data-go]").forEach((btn) => {
+        btn.addEventListener("click", () => openPerson(btn.getAttribute("data-go"), { push: true }));
+      });
+      backBtn.hidden = !(((history.state && history.state.depth) || cardDepth) > 1);
+    }
+
+    function showCard(id) {
+      selected = id;
+      renderTree();
+      renderCard(id);
+      card.hidden = false;
+      requestAnimationFrame(() => card.classList.add("open"));
+      card.setAttribute("role", "dialog");
+      card.setAttribute("aria-modal", "true");
+      card.setAttribute("aria-labelledby", "card-title");
+      closeBtn.focus();
+    }
+    function hideCard() {
+      selected = null;
+      renderTree();
+      card.classList.remove("open");
+      const done = () => { if (!card.classList.contains("open")) card.hidden = true; };
+      if (reduced) done();
+      else setTimeout(done, 280);
+    }
+
+    function openPerson(id, opts) {
+      if (!byId[id]) return;
+      const push = !opts || opts.push !== false;
+      if (push) {
+        const depth = (history.state && history.state.person) ? (history.state.depth || 0) + 1 : 1;
+        cardDepth = depth;
+        history.pushState({ person: id, depth: depth }, "", "#p=" + encodeURIComponent(id));
+      } else {
+        cardDepth = (history.state && history.state.depth) || 0;
+      }
+      showCard(id);
+    }
+
+    function closeToTree() {
+      hideCard();
+      const depth = (history.state && history.state.person) ? (history.state.depth || 1) : 0;
+      if (depth > 0) {
+        closingHistory = true;
+        history.go(-depth);
+        // Fallback if go() is ignored
+        setTimeout(() => { closingHistory = false; }, 400);
+      } else if (location.hash) {
+        history.replaceState({}, "", location.pathname + location.search);
+      }
+      cardDepth = 0;
+    }
+
+    window.addEventListener("popstate", (e) => {
+      if (closingHistory) {
+        closingHistory = false;
+        if (!(e.state && e.state.person)) {
+          hideCard();
+          cardDepth = 0;
+        }
+        return;
+      }
+      if (e.state && e.state.person && byId[e.state.person]) {
+        cardDepth = e.state.depth || 0;
+        showCard(e.state.person);
+      } else {
+        cardDepth = 0;
+        hideCard();
+      }
+    });
+
+    backBtn.addEventListener("click", () => history.back());
+    closeBtn.addEventListener("click", closeToTree);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && card.classList.contains("open")) closeToTree();
+    });
+
+    function renderRecords(records) {
+      const list = document.getElementById("rec-list");
+      const tbody = document.querySelector("#rec-table tbody");
+      list.innerHTML = "";
+      tbody.innerHTML = "";
+      (records || []).forEach((r) => {
+        const link = r.url
+          ? '<a href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener noreferrer">Open source</a>'
+          : "";
+        const item = document.createElement("article");
+        item.className = "rec";
+        item.innerHTML =
+          '<p class="k">' + escapeHtml(r.type || "Record") + "</p>" +
+          '<p class="who">' + escapeHtml(r.who || "") + "</p>" +
+          '<p class="detail">' + escapeHtml(r.detail || "") + "</p>" +
+          '<p class="meta">' +
+            (r.reference ? "Ref: " + escapeHtml(r.reference) + " · " : "") +
+            '<span class="badge ' + escapeHtml(r.confidence || "") + '">' + escapeHtml(confLabel(r.confidence)) + "</span>" +
+            (link ? " · " + link : "") +
+          "</p>";
+        list.appendChild(item);
+
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          "<td>" + escapeHtml(r.type || "") + "</td>" +
+          "<td>" + escapeHtml(r.who || "") + "</td>" +
+          "<td>" + escapeHtml(r.detail || "") + "</td>" +
+          "<td>" + escapeHtml(r.reference || "") + "</td>" +
+          '<td><span class="badge ' + escapeHtml(r.confidence || "") + '">' + escapeHtml(confLabel(r.confidence)) + "</span></td>" +
+          "<td>" + (r.url ? '<a href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener noreferrer">Open</a>' : "") + "</td>";
+        tbody.appendChild(tr);
+      });
+    }
+
+    function bootFromHash() {
+      const m = location.hash.match(/^#p=(.+)$/);
+      const id = m ? decodeURIComponent(m[1]) : "";
+      if (id && byId[id]) {
+        history.replaceState({ person: id, depth: 1 }, "", "#p=" + encodeURIComponent(id));
+        cardDepth = 1;
+        showCard(id);
+      }
+    }
+
+    fetch("data.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load the tree data");
+        return res.json();
+      })
+      .then((data) => {
+        people = data.people || [];
+        byId = Object.fromEntries(people.map((p) => [p.id, p]));
+        layoutData = layoutTree(people);
+        renderTree();
+        renderRecords(data.records || []);
+        measure();
+        bootFromHash();
+      })
+      .catch((err) => {
+        viewport.innerHTML = '<p class="err">The tree could not be loaded.</p>';
+        console.error(err);
+      });
+  })();
+  </script>
+</body>
+</html>
