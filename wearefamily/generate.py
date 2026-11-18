@@ -126,6 +126,15 @@ def is_uncertain(text: str) -> bool:
 CONFIRMED_LINE_ROOTS = ("P058", "P059")
 PATERNAL_NEWER_ANCHOR = "P002"
 
+# People already on the public tree. Regeneration may update their details,
+# but must not add anyone else without an explicit change to this set.
+PUBLIC_TREE_IDS = frozenset({
+    "P002", "P020", "P056", "P057", "P058", "P059",
+    "P087", "P088", "P089", "P090", "P091", "P092", "P093", "P094", "P095", "P096",
+    "P097", "P098", "P100", "P101", "P102", "P103", "P104", "P105", "P106", "P107",
+    "P108", "P109", "P110", "P111", "P112", "P113", "P114", "P115",
+})
+
 
 def is_confirmed_deceased(row: dict) -> bool:
     """Sheet-only rule: explicit deceased status, or a death date/year that is not uncertain."""
@@ -229,9 +238,12 @@ def testimony_confirmed_ids(people: list[dict]) -> tuple[set[str], list[str]]:
 def is_publishable(row: dict, testimony_ids: set[str]) -> bool:
     if cell_str(row.get("Status")).lower() == "living":
         return False
+    pid = cell_str(row.get("ID"))
+    if pid not in PUBLIC_TREE_IDS:
+        return False
     if is_confirmed_deceased(row):
         return True
-    return cell_str(row.get("ID")) in testimony_ids
+    return pid in testimony_ids
 
 
 def first_year(text: str) -> str | None:
@@ -628,7 +640,25 @@ def parse_sources(text: str, terms: list[str]) -> list[dict]:
             label = sanitize(chunk, terms)
             if label:
                 sources.append({"label": label, "url": ""})
-    return sources
+    return [src for src in sources if _keep_source(src)]
+
+
+# Research-only links (candidate lists, people not on the public tree).
+_DROP_SOURCE = re.compile(
+    r"lead only|not on the tree|not added|competing lead|possible sibling|"
+    r"as a lead|"
+    r"probable (?:daughter|son) (?:Mary, 1886|Josephine|Martin, 8 Nov 1902|James, 25 May 1906)",
+    re.I,
+)
+
+
+def _keep_source(src: dict) -> bool:
+    label = (src.get("label") or "").strip()
+    # A bare "Source" label is a leftover after a research-lead heading
+    # was removed; do not publish an unexplained link.
+    if not label or label.lower() == "source":
+        return False
+    return not _DROP_SOURCE.search(label)
 
 
 def _url_has_living_name(url: str, terms: list[str]) -> bool:
@@ -726,6 +756,344 @@ def living_names_for_check(people: list[dict], terms: list[str]) -> list[str]:
             seen.add(key)
             out.append(name)
     return out
+
+
+
+# Card notes, rewritten for a family reader. These replace the raw research
+# text from the spreadsheet so regeneration stays consistent. Only facts from
+# the source are kept; research housekeeping and unconfirmed candidate lists
+# are dropped. Review this map if the spreadsheet notes change substantially.
+FAMILY_NOTES = {
+    "P100": (
+        "He married Mary Ann McConell on 29 October 1871 in Larne, and lived "
+        "on Agnew's Lane. Their son Robert was born there on 19 October 1879, "
+        "when William was recorded as a labourer. He died on 19 March 1903 on "
+        "Main Street, Larne, aged 53, so he was born about 1850. He may also "
+        "be the father named at Robert's probable 1906 marriage; the family "
+        "has not yet confirmed that link."
+    ),
+    "P089": (
+        "Family-confirmed as Phyllis's father. He was born on 19 October 1879 "
+        "on Agnew's Lane, Larne, to William John and Mary Ann Donaghy. A civil "
+        "record shows a Robert Donaghy, a labourer of Newtown, Carnlough, "
+        "marrying Ellen Magill on 30 September 1906 at the Roman Catholic "
+        "chapel in Carnlough. That match is probable but not yet confirmed by "
+        "the family. Five later Larne births with those parents are treated as "
+        "Phyllis's probable siblings. A family member has said Nan's mum's "
+        "maiden name may have been Magill, and remembered talk of well-to-do "
+        "Magill cousins in Belfast; that supports the identification but does "
+        "not confirm it."
+    ),
+    "P090": (
+        "Family-confirmed as Phyllis's mother. Her maiden name was Magill, "
+        "also recorded as McGill. A civil birth for Ellen McGill on 4 October "
+        "1880 in Carnlough names her parents as Thomas McGill, a carpenter, "
+        "and Mary formerly Wilson, confirming the 1879 Glenarm marriage of "
+        "Thomas Magill and Mary Wilson as her parents. A civil record shows "
+        "Ellen Magill, of Newtown, Carnlough, marrying Robert Donaghy on 30 "
+        "September 1906 at the Roman Catholic chapel in Carnlough; her father "
+        "was Thomas Magill, a labourer. That marriage match is probable but "
+        "not yet confirmed by the family. The 1906 record described her as a "
+        "minor, which would imply a birth about 1886 to 1888, so it sits "
+        "awkwardly with an 1880 birth (she would have been about 25). Five "
+        "later Larne births with those parents are treated as Phyllis's "
+        "probable siblings. A family member has said Nan's mum's maiden name "
+        "may have been Magill, and remembered talk of well-to-do Magill "
+        "cousins in Belfast; that supports the identification but does not "
+        "confirm it."
+    ),
+    "P088": (
+        "Family-confirmed from the 1926 Irish census, when she was 37. She was "
+        "Mary Bridget Connor, also recorded as O'Connor, of Crossdrum, and "
+        "married William Cooke on 17 March 1915 at the Roman Catholic chapel "
+        "of Ballinacree, near Oldcastle in County Meath. She was 26; her "
+        "father was John Connor, a labourer. She was born about 1888 or 1889. "
+        "Her death, and her own birth record, have not yet been found."
+    ),
+    "P087": (
+        "Family-confirmed from the 1926 Irish census, when he was 37. He "
+        "married Mary Bridget Connor on 17 March 1915 at the Roman Catholic "
+        "chapel of Ballinacree, near Oldcastle in County Meath. He was 26, a "
+        "postman living in Castlerea; his father was Edward Cooke, a labourer. "
+        "He died on 26 March 1947 at Church Road, Castlerea, aged 58, an "
+        "ex-postman; his son Eddie was present. A probable civil birth in 1888 "
+        "in the Roscommon district names his parents as Edward Cooke and Ellen "
+        "Kelly."
+    ),
+    "P102": (
+        "A probable brother of Phyllis: a Larne civil birth names the parents "
+        "as Donaghy and Magill. The family has not yet confirmed the link."
+    ),
+    "P103": (
+        "A probable sister of Phyllis: a Larne civil birth names the parents "
+        "as Donaghy and Magill. The family has not yet confirmed the link."
+    ),
+    "P104": (
+        "A probable brother of Phyllis: a Larne civil birth names the parents "
+        "as Donaghy and Magill. The family has not yet confirmed the link."
+    ),
+    "P105": (
+        "A probable sister of Phyllis: a Larne civil birth names the parents "
+        "as Donaghy and Magill. The family has not yet confirmed the link."
+    ),
+    "P106": (
+        "A probable sister of Phyllis: a Larne civil birth names the parents "
+        "as Donaghy and Magill. The family has not yet confirmed the link."
+    ),
+    "P091": (
+        "Brother of John James Cooke. Known as Eddie. Born in Castlerea, "
+        "County Roscommon, and recorded as 10 on the 1926 Irish census. He was "
+        "present when his father William died on 26 March 1947 at Church Road, "
+        "Castlerea."
+    ),
+    "P092": (
+        "Brother of John James Cooke. Known as Billy. Born in Castlerea, "
+        "County Roscommon, and recorded as 9 on the 1926 Irish census."
+    ),
+    "P093": (
+        "Brother of John James Cooke. Born in Castlerea, County Roscommon, and "
+        "recorded as 4 on the 1926 Irish census."
+    ),
+    "P094": (
+        "Sister of John James Cooke. Known as Pearly. Born on 17 April 1924 in "
+        "Castlerea (the birth was registered as Ester) and recorded as 2 on "
+        "the 1926 Irish census. She married Thomas Burke on 8 September 1941 "
+        "at the Roman Catholic church in Castlerea. She was of St Kevin's "
+        "Terrace; her father William Cooke was a postman."
+    ),
+    "P095": (
+        "A younger sister of John, the first of two born after the 1926 "
+        "census. Her name is not yet known."
+    ),
+    "P096": (
+        "A younger sister of John, the second of two born after the 1926 "
+        "census. Her name is not yet known."
+    ),
+    "P056": (
+        "Family-confirmed as Bill, Tony's father. An index records a marriage "
+        "to Sarah A Nevin in Bournemouth in July to September 1947, which fits "
+        "Tony's birth (mother's maiden name Nevin). A possible, unconfirmed "
+        "index match is William Joseph Devaney, born 22 March 1917, died 1983 "
+        "in Hammersmith. A relative believes dad's family came from "
+        "Strandhill, County Sligo."
+    ),
+    "P057": (
+        "Family-confirmed as Sadie, Tony's mother (Sadie is a usual nickname "
+        "for Sarah). An index records her marriage to William J Devaney in "
+        "Bournemouth in July to September 1947; Nevin matches the mother's "
+        "maiden name on Tony's 1957 birth. A possible, unconfirmed index "
+        "match is Sarah Devaney, born 14 February 1917, died 1993 in "
+        "Westminster. A relative believes dad's family came from Strandhill. "
+        "A possible Irish birth on 11 February 1917 at Carrowmore, near "
+        "Strandhill, has not been confirmed."
+    ),
+    "P058": (
+        "Family-confirmed. Born on 14 January 1919 in Castlerea, County "
+        "Roscommon; his mother's maiden surname was O'Connor. He was 7 on the "
+        "1926 Irish census. His parents were William and Mary Cooke (née "
+        "O'Connor). His siblings were Eddie, Billy, George, Pearly, and two "
+        "younger sisters born after 1926. He died on 28 October 1976. He and "
+        "Phyllis married on 14 October 1943; the place is not yet known, and "
+        "may have been in Northern Ireland."
+    ),
+    "P059": (
+        "Family-confirmed. Her birth certificate spells her name Phillis, and "
+        "she insisted her name was Phillimena. Official records also use "
+        "Philomena and Phyllis. Born on 7 July 1923, died on 15 August 2014; "
+        "her death was registered in Hounslow. Her parents were Ellen and "
+        "Robert Donaghy. She and John married on 14 October 1943; the place "
+        "is not yet known and may have been in Northern Ireland. Her own "
+        "birth was not found in Irish records, which fits a Northern Ireland "
+        "birth. Her parents are a probable match for a 1906 Carnlough marriage "
+        "of Robert Donaghy and Ellen Magill, not yet confirmed by the family."
+    ),
+    "P020": (
+        "A brother of Tony. A birth index for Michael J Devaney, mother's "
+        "maiden name recorded as Nevan (likely Nevin), in Hammersmith in late "
+        "1954, fits the family. He died in January 2020; the death index names "
+        "him Michael John Devaney, born 1954, registered in Kensington and "
+        "Chelsea. The exact day is not yet known."
+    ),
+    "P002": (
+        "Known as Tony. The death index gives William Anthony J Devaney, born "
+        "1957. A birth index for William A Devaney, mother's maiden name "
+        "Nevin, in Hammersmith in July to September 1957, fits the family. He "
+        "died in July to September 2011, registered in Hounslow; the exact "
+        "day is not yet known."
+    ),
+    "P097": (
+        "A labourer. A probable marriage to Ellen Kelly took place on 27 "
+        "February 1886 at Bissara, in the Athleague district of County "
+        "Roscommon. His father was Edward Cooke, a miller. A probable 1888 "
+        "birth of William Cooke names these parents, and he is also named as "
+        "father on William's confirmed 1915 marriage."
+    ),
+    "P108": (
+        "A miller. Named as father at the probable 27 February 1886 marriage "
+        "of his son Edward Cooke, a labourer, to Ellen Kelly, at Bissara, in "
+        "the Athleague district of County Roscommon. His wife's name is not "
+        "yet known."
+    ),
+    "P107": (
+        "Maiden name Kelly. A probable marriage to Edward Cooke, a labourer, "
+        "took place on 27 February 1886 at Bissara, in the Athleague district "
+        "of County Roscommon. Her father was James Kelly, a farmer. A "
+        "probable 1888 Roscommon-district birth of William Cooke names her as "
+        "the mother."
+    ),
+    "P109": (
+        "A farmer. Named as father at the probable 27 February 1886 marriage "
+        "of his daughter Ellen Kelly to Edward Cooke, at Bissara, in the "
+        "Athleague district of County Roscommon. His wife's name is not yet "
+        "known."
+    ),
+    "P112": (
+        "A labourer. Named as father at the 29 October 1871 Larne marriage of "
+        "his daughter Mary Ann McConell to William John Donaghy. His wife's "
+        "name is not yet known."
+    ),
+    "P115": (
+        "A farmer. Named as father at the 27 November 1879 Glenarm marriage "
+        "of his daughter Mary Wilson to Thomas Magill. His wife's name is not "
+        "yet known. That couple are confirmed as Ellen Magill's parents by "
+        "Ellen's civil birth on 4 October 1880 in Carnlough."
+    ),
+    "P114": (
+        "A tailor. Named as father at the 27 November 1879 Glenarm marriage "
+        "of his son Thomas Magill to Mary Wilson. His wife's name is not yet "
+        "known. That couple are confirmed as Ellen Magill's parents by Ellen's "
+        "civil birth on 4 October 1880 in Carnlough."
+    ),
+    "P098": (
+        "A labourer. Named as father at the confirmed 17 March 1915 marriage "
+        "of his daughter Mary Bridget Connor, of Crossdrum, to William Cooke, "
+        "at the Roman Catholic chapel of Ballinacree, near Oldcastle in "
+        "County Meath. His wife's name is not yet known."
+    ),
+    "P110": (
+        "Maiden name McConell. She married William John Donaghy on 29 October "
+        "1871 in Larne; her father was James McConell, a labourer. Their son "
+        "Robert was born on 19 October 1879 on Agnew's Lane, Larne. She "
+        "reported her husband's death on 19 March 1903 on Main Street, Larne."
+    ),
+    "P113": (
+        "Maiden name Wilson. She married Thomas Magill, an agricultural "
+        "labourer of Carnlough, on 27 November 1879 at Glenarm, in the parish "
+        "of Tickmacrevan. Her father was James Wilson, a farmer. Ellen's civil "
+        "birth on 4 October 1880 in Carnlough names the mother as Mary McGill "
+        "formerly Wilson, confirming this couple as Ellen's parents."
+    ),
+    "P111": (
+        "A carter. Named as father at the 29 October 1871 Larne marriage of "
+        "his son William John Donaghy to Mary Ann McConell. His wife's name "
+        "is not yet known."
+    ),
+    "P101": (
+        "An agricultural labourer of Carnlough at his marriage to Mary Wilson "
+        "on 27 November 1879 at Glenarm, in the parish of Tickmacrevan. His "
+        "father was Jeremiah Magill, a tailor. Ellen's civil birth on 4 "
+        "October 1880 in Carnlough names him as Thomas McGill, a carpenter, "
+        "and confirms this couple as her parents. He is also named as father, "
+        "a labourer, at the probable 1906 Carnlough marriage of Ellen Magill "
+        "to Robert Donaghy. That 1906 record called Ellen a minor, which would "
+        "not fit an 1880 birth (she would have been about 25)."
+    ),
+}
+
+
+# Leftover holes after a living name was removed, e.g. "testimony from , 14 Nov".
+REDACTION_ARTIFACTS = (
+    re.compile(r"\bfrom\s+,"),
+    re.compile(r"\bvia\s+,"),
+    re.compile(r"\bby\s+,"),
+    re.compile(r"testimony from\s*,"),
+)
+
+
+def tidy_public_field(text: str) -> str:
+    """Strip research housekeeping from a card field, without adding facts."""
+    if not text:
+        return ""
+    out = text
+    # Remove a parenthesised URL first so the brackets do not dangle.
+    out = re.sub(r"\(\s*https?://[^)]+\)", "", out)
+    out = re.sub(r"https?://\S+", "", out)
+    # "a relative typed 2043, meaning 1943" and any wrapping research date.
+    out = re.sub(
+        r"\(?\s*(?:\d{1,2}\s+\w+\s+202[5-9]\s*;\s*)?a relative typed \d{4},"
+        r"(?: clearly)? meaning \d{4}"
+        r"(?:, the same sort of typo as [^).]+)?\)?\.?",
+        "",
+        out,
+        flags=re.I,
+    )
+    # Research-session dates such as "(14 Nov 2026)" or "Mentioned 14 Nov 2026".
+    out = re.sub(r"\(?\s*\d{1,2}\s+\w+\s+202[5-9]\s*;?\s*\)", "", out)
+    out = re.sub(r",?\s*\d{1,2}\s+\w+\s+202[5-9]\b", "", out)
+    out = re.sub(r"\b(?:from|via|by)\s+,", ",", out)
+    out = re.sub(r"Supporting testimony\s*:?\s*", "", out, flags=re.I)
+    # Testimony remnants belong in the family note, not the marriage line.
+    out = re.sub(
+        r"possible that Nan's mum's maiden name was Magill;?\s*",
+        "",
+        out,
+        flags=re.I,
+    )
+    out = re.sub(r"[^.]*\bare a lead only[^.]*\.", "", out, flags=re.I)
+    out = re.sub(r"[^.]*\blead only[^.]*\.", "", out, flags=re.I)
+    out = re.sub(r"\bMentioned\.?", "", out, flags=re.I)
+    out = re.sub(r"\(\s*[,;:./]*\s*\)", "", out)
+    out = re.sub(r"\(\s*$", "", out)
+    out = re.sub(r"(Married \d{1,2} \w+ \d{4})\s+(Place not known)", r"\1. \2", out)
+    out = re.sub(r"\s{2,}", " ", out)
+    out = re.sub(r"\s+\.", ".", out)
+    out = re.sub(r"\.\s*\.", ".", out)
+    return _tidy(out)
+
+
+def general_note_tidy(text: str) -> str:
+    """Fallback when a person has no hand-written family note."""
+    if not text:
+        return ""
+    out = tidy_public_field(text)
+    out = re.sub(
+        r"LEAD[S]? ONLY, NOT ADDED[^.]*\.",
+        "",
+        out,
+        flags=re.I,
+    )
+    out = re.sub(
+        r"A lead(?: only)?, not (?:added|linked)[^.]*\.",
+        "",
+        out,
+        flags=re.I,
+    )
+    out = re.sub(r"A competing lead[^.]*\.", "", out, flags=re.I)
+    out = re.sub(r"Confirm dates with a certificate\.", "", out, flags=re.I)
+    out = re.sub(r"[^.]*confirm before ordering\.", "", out, flags=re.I)
+    out = re.sub(r"[^.]*quote the cost before searching[^.]*\.", "", out, flags=re.I)
+    out = re.sub(r"INDEX MATCH, FITS FAMILY INFO\s*:?\s*", "", out, flags=re.I)
+    out = re.sub(r"\b(?:HIGH CONFIDENCE|PROBABLE(?: / MODERATE)?|CONFIRMED)\.\s*", "", out, flags=re.I)
+    out = re.sub(r"HubSpot/family notes[^.]*\.", "", out, flags=re.I)
+    return _tidy(out)
+
+
+def family_note(pid: str, raw: str, terms: list[str]) -> str:
+    """Publish a short family-readable note, still passed through the leak filter."""
+    if pid in FAMILY_NOTES:
+        text = FAMILY_NOTES[pid]
+    else:
+        text = general_note_tidy(raw)
+    return sanitize(text, terms)
+
+
+def find_artifacts(blob: str) -> list[str]:
+    """Catch leftover redaction holes so living names are not hinted at."""
+    hits = []
+    for pattern in REDACTION_ARTIFACTS:
+        if pattern.search(blob):
+            hits.append(pattern.pattern)
+    return hits
 
 
 def find_leaks(blob: str, names: list[str]) -> list[str]:
@@ -831,9 +1199,9 @@ def build(xlsx_path: Path) -> tuple[dict, dict]:
             "conf": confidence(cell_str(row.get("Verified?"))),
             "birth": birth_text(row, terms),
             "birthPlace": birth_place(row, terms),
-            "marriage": sanitize(cell_str(row.get("Marriage details")), terms),
+            "marriage": tidy_public_field(sanitize(cell_str(row.get("Marriage details")), terms)),
             "death": sanitize(cell_str(row.get("Death date")), terms),
-            "note": sanitize(cell_str(row.get("Notes / gaps")), terms),
+            "note": family_note(pid, sanitize(cell_str(row.get("Notes / gaps")), terms), terms),
             "sources": parse_sources(cell_str(row.get("Source link")), terms),
             "father": father if father in included_ids else None,
             "mother": mother if mother in included_ids else None,
@@ -898,6 +1266,14 @@ def main() -> int:
         sys.stderr.write(
             "Refusing to write data.json: living names still present: "
             + ", ".join(leaks)
+            + "\n"
+        )
+        return 1
+    artifacts = find_artifacts(blob)
+    if artifacts:
+        sys.stderr.write(
+            "Refusing to write data.json: redaction artifacts still present: "
+            + ", ".join(artifacts)
             + "\n"
         )
         return 1
