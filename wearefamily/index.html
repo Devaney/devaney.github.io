@@ -844,10 +844,49 @@
         return Array.from(map.values());
       }
 
-      // Bottom-up only: parents follow their own children. A top-down
-      // pass would slide unmarried siblings away from a child who has
-      // to sit beside a spouse, tearing the sibling group apart.
+      // A top-down pass that moved every child toward their parents would
+      // slide unmarried siblings away from a brother or sister who has to
+      // sit beside a spouse, tearing the sibling group apart. So parents
+      // still follow their own children, and a child row only follows its
+      // parents when everyone on that row is a leaf child of the same couple.
+      function isLeafUnit(u) {
+        return u.ids.every((id) => !list.some((c) => (c.father === id || c.mother === id) && pos[c.id]));
+      }
+      function sharedParentsOfRow(units) {
+        if (!units.length) return null;
+        let key = "";
+        for (let i = 0; i < units.length; i++) {
+          if (!isLeafUnit(units[i])) return null;
+          for (let j = 0; j < units[i].ids.length; j++) {
+            const p = byId[units[i].ids[j]];
+            const have = [p.father, p.mother].filter((id) => id && pos[id]).sort().join("|");
+            if (!have) return null;
+            if (!key) key = have;
+            else if (have !== key) return null;
+          }
+        }
+        return key ? key.split("|") : null;
+      }
+      function alignLeafRows() {
+        gens.forEach((g) => {
+          const units = unitsAt[g];
+          const pars = sharedParentsOfRow(units);
+          if (!pars) return;
+          const groupWidth = units.reduce((s, u, i) => {
+            return s + u.width + (i > 0 ? unitGap(units[i - 1], u) : 0);
+          }, 0);
+          let x = midOf(pars) - groupWidth / 2;
+          const desired = units.map((u, i) => {
+            const want = x;
+            if (i + 1 < units.length) x += u.width + unitGap(u, units[i + 1]);
+            return want;
+          });
+          applyX(units, pack(units, desired));
+        });
+      }
+
       for (let pass = 0; pass < 8; pass++) {
+        alignLeafRows();
         gens.slice().reverse().forEach((g) => {
           const units = unitsAt[g];
           const desired = units.map((u) => {

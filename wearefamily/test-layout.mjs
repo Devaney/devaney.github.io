@@ -126,6 +126,23 @@ function assertLayoutModel(model, people, BW, BH) {
     if (hits.length !== 1) fail(p.id + " is in " + hits.length + " families, expected 1");
   });
 
+  // Mick (P020) and Tony (P002) should sit next to their parents Bill (P056)
+  // and Sadie (P057), not far to one side with a long connector.
+  const kidIds = ["P020", "P002"].filter((id) => pos[id]);
+  const parIds = ["P056", "P057"].filter((id) => pos[id]);
+  if (kidIds.length && parIds.length) {
+    const mid = (ids) => ids.reduce((s, id) => s + pos[id].x + BW / 2, 0) / ids.length;
+    const dx = Math.abs(mid(kidIds) - mid(parIds));
+    if (dx > BW) {
+      fail("Mick and Tony sit " + Math.round(dx) + "px away from Bill and Sadie; expected a short connector");
+    }
+    // Siblings stay beside each other.
+    const gap = Math.abs(pos["P020"].x - pos["P002"].x) - BW;
+    if (gap < 8 || gap > 80) {
+      fail("Mick and Tony sibling gap is " + gap + ", expected them side by side");
+    }
+  }
+
   return true;
 }
 
@@ -307,9 +324,40 @@ await cardPage.waitForFunction(() => {
 });
 const title = await cardPage.$eval("#card-title", (el) => el.textContent);
 if (!title) failures.push("P058 card opened without a title");
+const chipInfo = await cardPage.evaluate(() => {
+  const chips = [...document.querySelectorAll("#card .chip")].map((el) => ({
+    text: el.textContent.trim(),
+    go: el.getAttribute("data-go"),
+  }));
+  const blocks = [...document.querySelectorAll("#card .rel-block h3")].map((el) => el.textContent.trim());
+  return { chips, blocks };
+});
+if (!chipInfo.chips.length) failures.push("P058 card has no relative chips");
+["Parents", "Siblings", "Partner"].forEach((label) => {
+  if (!chipInfo.blocks.includes(label)) failures.push("P058 card missing " + label + " chips");
+});
+const parentChip = chipInfo.chips.find((c) => c.go === "P087" || c.go === "P088");
+if (!parentChip) {
+  failures.push("P058 card has no parent chip");
+} else {
+  await cardPage.click('#card .chip[data-go="' + parentChip.go + '"]');
+  await cardPage.waitForFunction((id) => {
+    const titleEl = document.getElementById("card-title");
+    const card = document.getElementById("card");
+    return card && !card.hidden && titleEl && window.__wearefamily && window.__wearefamily.byId[id] &&
+      titleEl.textContent === window.__wearefamily.byId[id].name;
+  }, parentChip.go);
+  const after = await cardPage.$eval("#card-title", (el) => el.textContent);
+  const stillOpen = await cardPage.evaluate(() => {
+    const card = document.getElementById("card");
+    return card && !card.hidden && card.classList.contains("open") && document.querySelectorAll("#card .chip").length > 0;
+  });
+  if (!stillOpen) failures.push("tapping a relative chip did not keep a card open");
+  console.log("chip tap: " + parentChip.text + " -> " + after);
+}
 const cardPath = path.join(shotDir, "card-p058.png");
 await cardPage.screenshot({ path: cardPath, fullPage: false });
-console.log("wrote " + cardPath + " (title: " + title + ")");
+console.log("wrote " + cardPath + " (title: " + title + "; chips: " + chipInfo.chips.length + ")");
 await cardPage.close();
 
 await browser.close();
